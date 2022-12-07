@@ -1,0 +1,292 @@
+<div class="container" id="main-container" style="margin-top: 60px;">
+    <div class="row flex-lg-nowrap">
+      <div class="col-12 col-md-1 mb-3">
+        
+      </div>
+    
+      <div class="col-12">
+        <div class="row">
+          <div class="col mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="e-profile">
+                  <div class="row">
+                    <div class="col-12 col-sm-auto mb-3">
+                      <div class="mx-auto" style="width: 250px;">
+                        <div class="d-flex justify-content-center align-items-center rounded" style="height: 250px; background-color: rgb(233, 236, 239);">
+                          <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">
+                            <img style="max-width: 250px;" src="{{user?.profile}}" alt="">
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                      <div class="text-center text-sm-left mb-2 mb-sm-0" style="margin-top: 7%">
+                        <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{user?.fullName}}</h4>
+                        <p class="mb-0">{{user?.userCode}}</p>
+                        <p class="mb-0">{{user?.email}}</p>                                        
+                      </div>    
+                    </div>
+                  </div>
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item"><a href="" class="active nav-link">Tùy chỉnh</a></li>
+                  </ul>
+                  <div class="tab-content pt-3">
+                    <div class="tab-pane active">
+                      <form class="form" >
+                        <input type="hidden" ngModel="{{user?.id}}" name="id" id="id">
+                        <input type="hidden" ngModel="{{user?.password}}" name="password" id="password">
+                        <div class="row">
+                          <div class="col">
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                    <mat-form-field class="form-control p0"  appearance="outline">
+                                        <mat-label>Mã sinh viên</mat-label>
+                                        <input matInput                                 
+                                        name = "userCode"
+                                        placeholder="Ví dụ: 425119xxxx"
+                                        ngModel="{{user?.userCode}}"
+                                        disabled>                                                     
+                                    </mat-form-field>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-group">
+                                    <mat-form-field class="form-control p0"  appearance="outline">
+                                        <mat-label>Họ và tên</mat-label>
+                                        <input matInput type="text"                                 
+                                        name = "fullName"
+                                        ngModel="{{user?.fullName}}"                                    
+                                        disabled>                                                     
+                                    </mat-form-field>
+                                </div>
+                              </div>                       
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col">
+                                  <div class="form-group">
+                                    <mat-form-field class="form-control p0"  appearance="outline">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput type="email"                                
+                                        name = "email"   
+                                        ngModel="{{user?.email}}"                                 
+                                        disabled>                                                     
+                                    </mat-form-field>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="form-group">
+                                    <mat-form-field class="form-control p0"  appearance="outline">
+                                        <mat-label>Địa chỉ</mat-label>
+                                        <input matInput type="text"                                
+                                        name = "address"   
+                                        ngModel="{{user?.address}}"                                 
+                                        disabled>                                                     
+                                    </mat-form-field>
+                                  </div>
+                                </div>                       
+                              </div>
+    
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group">
+                                    <mat-form-field class="form-control p0"  appearance="outline">
+                                        <mat-label>Ngày sinh</mat-label>
+                                        <input matInput type="text"                                
+                                        name = "birthday"   
+                                        placeholder="DD/MM/YYYY"
+                                        ngModel="{{user?.birthday}}"                                 
+                                        disabled>                                                     
+                                    </mat-form-field>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="form-group">
+                                    <mat-form-field class="form-control p0"  appearance="outline">
+                                        <mat-label>Giới tính</mat-label>
+                                        <input matInput type="text"                                
+                                        name = "gender"   
+                                        ngModel="{{user?.gender}}"                                 
+                                        disabled>                                                     
+                                    </mat-form-field>
+                                  </div>
+                                </div>                       
+                            </div>
+                            <div class="row">  
+                              <div class="col">
+                                <div class="form-group">
+                                    <mat-form-field class="form-control p0"  appearance="outline">
+                                        <mat-label>Số điện thoại</mat-label>
+                                        <input matInput type="text"                                
+                                        name = "phone"   
+                                        placeholder="098273xxxx"
+                                        ngModel="{{user?.phone}}"                                 
+                                        disabled>                                                     
+                                </mat-form-field>
+                                </div>
+                              </div>   
+                              <div class="col">
+                                <div class="form-group">
+                                    <mat-form-field class="form-control p0"  appearance="outline">
+                                        <mat-label>Image Url</mat-label>
+                                        <input matInput type="text"                                
+                                        name = "profile"   
+                                        placeholder="https:\\abc.png"
+                                        ngModel="{{user?.profile}}"                                 
+                                        disabled>                                                     
+                                </mat-form-field>
+                                </div>
+                              </div>                      
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div class="row">                     
+                            <div class="mb-2"><b>THAY ĐỔI MẬT KHẨU</b></div>
+                            <div class="row">
+                                <div class="col">
+                                  <div class="form-group">
+                                      <mat-form-field class="form-control p0"  appearance="outline">
+                                          <mat-label>Mật khẩu hiện tại</mat-label>
+                                          <input matInput  type="password"                                                                     
+                                          placeholder="******">                                                     
+                                      </mat-form-field>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="form-group">
+                                      <mat-form-field class="form-control p0"  appearance="outline">
+                                          <mat-label>Mật khẩu mới</mat-label>
+                                          <input matInput  type="password"                               
+                                          name = "password"
+                                          placeholder="******"
+                                          
+                                          >                                           
+                                      </mat-form-field>
+                                  </div>
+                                </div>                       
+                              </div>                       
+                                               
+                        </div> -->
+                        <div class="row">
+                          <div class="col d-flex justify-content-end">
+                            <button (click)="onOpenModal('edit')" data-dismiss="modal" class="btn btn-primary" type="submit">Thay đổi</button>
+                          </div>
+                        </div>
+                      </form>
+    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="col-12 col-md-2 mb-3">
+            
+          </div>
+        </div>
+    
+      </div>
+      <!-- Edit Modal -->
+        <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="companyEditModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+             <div class="modal-content">
+                <div class="modal-header">
+                   <h3 class="modal-title" id="updateUserModalLabel">CHỈNH SỬA THÔNG TIN CÁ NHÂN</h3>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                   </button>
+                </div>
+                <div class="modal-body">
+                   <form #editForm="ngForm">
+                    <div class="form-group">
+                      <mat-form-field class="form-control p0"  appearance="outline">
+                          <mat-label>Mã sinh viên</mat-label>
+                          <input matInput                                 
+                          name = "userCode"
+                          placeholder="Ví dụ: 425119xxxx"
+                          ngModel="{{user?.userCode}}"
+                          >                                                     
+                      </mat-form-field>
+                  </div>
+                  <input type="hidden" ngModel="{{user?.id}}" name="id" id="id">
+                  <input type="hidden" ngModel="{{user?.password}}" name="password" id="password">
+                     <div class="form-group">
+                      <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Họ và tên</mat-label>
+                        <input matInput type="text"                                 
+                        name = "fullName"
+                        ngModel="{{user?.fullName}}"                                    
+                        >                                                     
+                    </mat-form-field>
+                     </div>
+                     <div class="form-group">
+                      <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email"                                
+                        name = "email"   
+                        ngModel="{{user?.email}}"                                 
+                        >                                                     
+                    </mat-form-field>
+                     </div>
+                     <div class="form-group">
+                      <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Địa chỉ</mat-label>
+                        <input matInput type="text"                                
+                        name = "address"   
+                        ngModel="{{user?.address}}"                                 
+                        >                                                     
+                    </mat-form-field>                
+                     </div>
+                     <div class="form-group">                     
+                      <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Ngày sinh</mat-label>
+                        <input matInput type="text"                                
+                        name = "birthday"   
+                        placeholder="DD/MM/YYYY"
+                        ngModel="{{user?.birthday}}"                                 
+                        >                                                     
+                    </mat-form-field>                   
+                     </div>     
+                     <div class="form-group">
+                      <mat-form-field class="form-control p0"  appearance="outline">
+                          <mat-label>Giới tính</mat-label>
+                          <input matInput type="text"                                
+                          name = "gender"   
+                          ngModel="{{user?.gender}}"                                 
+                          >                                                     
+                      </mat-form-field>
+                    </div>   
+                    <div class="form-group">
+                      <mat-form-field class="form-control p0"  appearance="outline">
+                          <mat-label>Số điện thoại</mat-label>
+                          <input matInput type="text"                                
+                          name = "phone"   
+                          placeholder="098273xxxx"
+                          ngModel="{{user?.phone}}"                                 
+                          >                                                     
+                  </mat-form-field>
+                  </div>       
+                  <div class="form-group">
+                    <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Image Url</mat-label>
+                        <input matInput type="text"                                
+                        name = "profile"   
+                        placeholder="https:\\abc.png"
+                        ngModel="{{user?.profile}}"                                 
+                        >                                                     
+                </mat-form-field>
+                </div>
+                      <div class="modal-footer">                    
+                         <button (click)="onUpdateUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Lưu thay đổi</button>
+                         <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Đóng</button>
+                      </div>
+                   </form>
+                </div>
+             </div>
+          </div>
+        </div>
+    </div>
+    </div>

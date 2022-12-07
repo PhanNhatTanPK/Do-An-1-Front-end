@@ -1,0 +1,168 @@
+<div class="container" id="main-container">
+    <div class="row" style="margin-bottom: 15px">
+        <div class="col-sm">
+            <button (click)="onOpenModal(null, 'add')" mat-raised-button color="primary">
+                <mat-icon aria-hidden="false" fontIcon="">add_circle</mat-icon>
+                Thêm giảng viên mới                
+            </button>
+        </div>
+        <form class="form-inline col-sm my-2 my-lg-0" style="max-width: 300px;">
+            <input type="search" (ngModelChange)="searchTeachers(key.value)" #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Tìm kiếm giảng viên..." required>
+        </form>
+    </div>
+    <div class="row">
+      <div *ngFor="let teacher of teachers" class="col-md-6 col-xl-3">
+         <div class="card m-b-30">
+            <div class="card-body row">               
+                <a href=""><img src="{{teacher.profile}}" alt="" class="img-fluid"></a>                        
+            </div>
+            <div class="row card-title align-self-center" >               
+                <h4>{{teacher.fullName}}</h4>
+            </div>
+            <ul class="list-group list-group-flush">               
+                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">location_on</mat-icon> {{teacher.address}}</li>
+                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">contact_mail</mat-icon> {{teacher.email}}</li>
+                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">contact_phone</mat-icon> {{teacher.phone}}</li>
+            </ul>
+            <div class="card-body">
+               <div class="float-right btn-group btn-group-sm">                  
+                    <a (click)="onOpenModal(teacher, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
+                        <mat-icon aria-hidden="false" fontIcon="">delete</mat-icon>
+                    </a>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    
+    <!-- Add Teacher Modal -->
+    <div class="modal fade" id="addTeacherModal" tabindex="-1" role="dialog" aria-labelledby="addTeacherModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h3 class="modal-title" id="addTeacherModalLabel">THÊM GIẢNG VIÊN</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+              <form #addForm="ngForm" (ngSubmit)="onAddTeacher(addForm)">
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Mã giảng viên</mat-label>
+                     <input matInput type="text"                                
+                     name = "userCode"  
+                     id="userCode" 
+                     placeholder="Công ty A"
+                     ngModel required>                                                     
+                  </mat-form-field>
+                 </div>            
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Họ và tên</mat-label>
+                     <input matInput type="text"                                
+                     name = "fullName" 
+                     id="fullName"  
+                     placeholder="Nguyễn Văn A"
+                     ngModel required>                                                     
+                  </mat-form-field>
+                 </div>
+                 <div class="form-group">
+                    <mat-form-field class="form-control p0" appearance="outline">
+                        <mat-label>Mật khẩu</mat-label>
+                        <input matInput type="password"                        
+                        name="password" 
+                        id="password"
+                        placeholder="Mật khẩu" 
+                        ngModel required>                    
+                    </mat-form-field>
+                 </div>
+                 <div class="form-group">                     
+                    <mat-form-field class="form-control p0"  appearance="outline">
+                       <mat-label>Email</mat-label>
+                       <input matInput type="email"                                
+                       name = "email" 
+                       id="email"  
+                       placeholder="abc@gmail.com"
+                       ngModel required>                                                     
+                    </mat-form-field>                   
+                </div>
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Số điện thoại</mat-label>
+                     <input matInput type="text"                                
+                     name = "phone" 
+                     id="phone"  
+                     placeholder="098273xxxx"
+                     ngModel required>                                                     
+                  </mat-form-field>                  
+                 </div>
+                 <div class="form-group">                     
+                     <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Ngày sinh</mat-label>
+                        <input matInput type="text"                                
+                        name = "birthday" 
+                        id="birthday"  
+                        placeholder="DD/MM/YYYY"
+                        ngModel required>                                                     
+                     </mat-form-field>                   
+                 </div>
+                 <div class="form-group">                     
+                    <mat-form-field class="form-control p0"  appearance="outline">
+                       <mat-label>Địa chỉ</mat-label>
+                       <input matInput type="text"                                
+                       name = "address" 
+                       id="address"  
+                       placeholder="DD/MM/YYYY"
+                       ngModel required>                                                     
+                    </mat-form-field>                   
+                </div>
+                <div class="form-group">                     
+                    <div class="form-control col" style="border:none;">
+                        <label style="margin-right: 10px" for="gender">Giới tính:</label>                                   
+                            <mat-radio-button                                        
+                            name="gender"
+                            value="Nam"
+                            ngDefaultControl
+                            ngModel                                       
+                            style="margin-right: 10px">Nam</mat-radio-button> 
+                            <mat-radio-button                                        
+                            name="gender"
+                            value="Nữ"
+                            ngDefaultControl
+                            ngModel                                        
+                            style="margin-right: 10px">Nữ</mat-radio-button>                                                                    
+                    </div>                   
+                </div>
+              <div class="modal-footer">
+                 <button type="button" id="add-teacher-form" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                 <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Thêm</button>
+              </div>
+              </form>
+           </div>
+        </div>
+      </div>
+      </div>
+    
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteTeacherModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">XÓA GIẢNG VIÊN</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Bạn có chắc muốn xóa giảng viên: "{{deleteTeacher?.fullName}}"</p>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button (click)="onDeleteTeacher(deleteTeacher?.userCode)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    </div>

@@ -1,0 +1,181 @@
+<div class="container" id="main-container">
+    <div class="row" style="margin-bottom: 15px">
+        <div class="col-sm">
+            <button (click)="onOpenModal(null, 'add')" mat-raised-button color="primary">
+                <mat-icon aria-hidden="false" fontIcon="">add_circle</mat-icon>
+                Thêm tin tức mới                
+            </button>
+        </div>
+        <form class="form-inline col-sm my-2 my-lg-0" style="max-width: 300px;">
+            <input type="search" (ngModelChange)="searchNews(key.value)" #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Tìm kiếm tin tức..." required>
+        </form>
+    </div>
+    <div class="row">
+      <div *ngFor="let newData of news" class="col-md-6 col-xl-3">
+         <div class="card m-b-30">
+            <div class="card-body row">               
+                <a href=""><img src="{{newData.image}}" alt="" class="img-fluid"></a>                        
+            </div>
+            <div class="row card-title align-self-center" >               
+                <h4>{{newData.title}}</h4>
+            </div>
+            <ul class="list-group list-group-flush">               
+                <li class="list-group-item">{{newData.short_description}}</li>
+            </ul>
+            <div class="card-body">
+               <div class="float-right btn-group btn-group-sm"> 
+                  <a (click)="onOpenModal(newData, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">
+                     <mat-icon aria-hidden="false" fontIcon="">edit_square</mat-icon>
+                  </a>               
+                  <a (click)="onOpenModal(newData, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
+                     <mat-icon aria-hidden="false" fontIcon="">delete</mat-icon>
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    
+    <!-- Add Company Modal -->
+    <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="addNewModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h3 class="modal-title" id="addNewModalLabel">THÊM TIN TỨC</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+              <form #addForm="ngForm" (ngSubmit)="onAddNew(addForm)">
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Tiêu đề</mat-label>
+                     <input matInput type="text"                                
+                     name = "title"  
+                     id="title" 
+                     placeholder="..."
+                     ngModel required>                                                     
+                  </mat-form-field>
+                 </div>            
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Mô tả ngắn</mat-label>
+                     <input matInput type="text"                                
+                     name = "short_description" 
+                     id="short_description"  
+                     placeholder="..."
+                     ngModel required>                                                     
+                  </mat-form-field>
+                 </div>
+                 <div class="form-group">
+                    <mat-form-field class="form-control p0" appearance="outline">
+                        <mat-label>Nội dung</mat-label>
+                        <input matInput type="text"                        
+                        name="content" 
+                        id="content"
+                        placeholder="..." 
+                        ngModel required>                    
+                    </mat-form-field>
+                 </div>
+                 <div class="form-group">                     
+                    <mat-form-field class="form-control p0"  appearance="outline">
+                       <mat-label>Link hình ảnh</mat-label>
+                       <input matInput type="text"                                
+                       name = "image" 
+                       id="image"  
+                       placeholder="https:\\abc"
+                       ngModel required>                                                     
+                    </mat-form-field>                   
+                </div>                 
+              <div class="modal-footer">
+                 <button type="button" id="add-new-form" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                 <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Thêm</button>
+              </div>
+              </form>
+           </div>
+        </div>
+      </div>
+      </div>
+
+    <!-- Edit Modal -->
+   <div class="modal fade" id="updateNewModal" tabindex="-1" role="dialog" aria-labelledby="newEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h3 class="modal-title" id="updateNewModalLabel">CHỈNH SỬA THÔNG TIN TIN TỨC</h3>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <form #editForm="ngForm">
+              <div class="form-group">
+                <mat-form-field class="form-control p0"  appearance="outline">
+                   <mat-label>Tiêu đề</mat-label>
+                   <input matInput type="text"                                
+                   name = "title"   
+                   placeholder="..."
+                   ngModel="{{editNew?.title}}">                                                     
+                </mat-form-field>
+               </div>
+               <input type="hidden" ngModel="{{editNew?.id}}" name="id" class="form-control" id="id">     
+               <div class="form-group">
+                <mat-form-field class="form-control p0"  appearance="outline">
+                   <mat-label>Số lượng thực tập sinh</mat-label>
+                   <input matInput type="text"                                
+                   name = "short_description"
+                   placeholder="..."
+                   ngModel="{{editNew?.short_description}}">                                                     
+                </mat-form-field>
+               </div>
+               <div class="form-group">
+                <mat-form-field class="form-control p0"  appearance="outline">
+                   <mat-label>Yêu cầu</mat-label>
+                   <input matInput type="text"                                
+                   name = "content"   
+                   placeholder="..."
+                   ngModel="{{editNew?.content}}">                                                     
+                </mat-form-field>
+               </div>
+               <div class="form-group">
+                <mat-form-field class="form-control p0"  appearance="outline">
+                   <mat-label>Link hình ảnh</mat-label>
+                   <input matInput type="text"                                
+                   name = "image"   
+                   placeholder="..."
+                   ngModel="{{editNew?.image}}">                                                     
+                </mat-form-field>                  
+               </div>                  
+                <div class="modal-footer">                    
+                   <button (click)="onUpdateNew(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Lưu thay đổi</button>
+                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Đóng</button>
+                </div>
+             </form>
+          </div>
+       </div>
+    </div>
+  </div>
+    
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteNewModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">XÓA TIN TỨC</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Bạn có chắc muốn xóa sinh viên: "{{deleteNew?.title}}"</p>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button (click)="onDeleteNew(deleteNew?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    </div>

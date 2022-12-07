@@ -1,0 +1,9 @@
+.p0{
+    border: none;
+    padding: 0;
+}
+
+.icon-position{
+    display: inline-flex;
+    vertical-align: middle;
+  }

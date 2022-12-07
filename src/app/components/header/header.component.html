@@ -1,0 +1,71 @@
+<header class="mb-3 bg-info border-bottom header">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">      
+        <a *ngIf="isLoggedIn && loginService.getUserRole() == 'ADMIN';" [routerLink]="'admin'" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+          <img src="https://kcntt.qnu.edu.vn/Resources/Images/SubDomain/kcntt/logo90x90.png" width="50" height="50"> KHOA CÔNG NGHỆ THÔNG TIN
+        </a>
+        <a *ngIf="isLoggedIn && loginService.getUserRole() == 'STUDENT';" [routerLink]="'student'" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+          <img src="https://kcntt.qnu.edu.vn/Resources/Images/SubDomain/kcntt/logo90x90.png" width="50" height="50"> KHOA CÔNG NGHỆ THÔNG TIN
+        </a>
+        <a *ngIf="isLoggedIn && loginService.getUserRole() == 'TEACHER';" [routerLink]="'teacher'" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+          <img src="https://kcntt.qnu.edu.vn/Resources/Images/SubDomain/kcntt/logo90x90.png" width="50" height="50"> KHOA CÔNG NGHỆ THÔNG TIN
+        </a>
+        <a *ngIf="!isLoggedIn" [routerLink]="'/'" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+          <img src="https://kcntt.qnu.edu.vn/Resources/Images/SubDomain/kcntt/logo90x90.png" width="50" height="50"> KHOA CÔNG NGHỆ THÔNG TIN
+        </a>
+  
+        <ul id="nav" class="ml-5 nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <!-- <li><a [routerLink]="''"  class="nav-link px-2 link-dark">Trang chủ</a></li>                    
+          <li><a *ngIf="isLoggedIn" [routerLink]="'job'"  class="nav-link px-2 link-dark">Thông tin tuyển dụng</a></li>          
+          <li class="nav-item dropdown">
+            <a *ngIf="isLoggedIn && (loginService.getUserRole() == 'ADMIN' || loginService.getUserRole() == 'TEACHER')" class="nav-link px-2 link-dark dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Quản lý
+            </a>
+            <ul class="dropdown-menu dropdown-menu-white" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li><a [routerLink]="'managerStudent'" *ngIf="isLoggedIn && (loginService.getUserRole() == 'ADMIN' || loginService.getUserRole() == 'TEACHER')" class="nav-link px-2 link-dark">Quản lý sinh viên</a></li>
+              <li><a [routerLink]="'managerTeacher'" *ngIf="isLoggedIn && loginService.getUserRole() == 'ADMIN'" class="nav-link px-2 link-dark">Quản lý giảng viên</a></li>
+              <li><a [routerLink]="'managerCompany'" *ngIf="isLoggedIn && loginService.getUserRole() == 'ADMIN'" class="nav-link px-2 link-dark">Quản lý công ty</a></li>
+            </ul>
+          </li>          
+          <li><a href="#" *ngIf="isLoggedIn && loginService.getUserRole() == 'ADMIN'" class="nav-link px-2 link-dark">Thống kê</a></li>
+          <li><a href="#" *ngIf="isLoggedIn && loginService.getUserRole() == 'USER'" class="nav-link px-2 link-dark">Báo cáo</a></li>           -->
+        </ul>
+
+        <div class="dropdown text-end">
+          
+          <a class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">  
+            <p *ngIf="isLoggedIn" class="name"> {{loginService.getUser().fullName}}</p>         
+            <img *ngIf="!isLoggedIn" src="https://th.bing.com/th/id/R.945f33b643f2ceffcdae90fb57c61854?rik=XcI0SYBgSefoCA&riu=http%3a%2f%2fgetdrawings.com%2ffree-icon-bw%2fanonymous-avatar-icon-19.png&ehk=5n%2buJG66CeLQZsmhaMt8gag5rXuM3TdebAL6W35K1E4%3d&risl=&pid=ImgRaw&r=0" alt="mdo" width="32" height="32" class="rounded-circle">
+            <img *ngIf="isLoggedIn" src="{{loginService.getUser().profile}}" alt="mdo" width="32" height="32" class="rounded-circle"> 
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1"> 
+
+            <li><a *ngIf="!isLoggedIn" class="dropdown-item" [routerLink]="'/login'">
+              Đăng nhập
+              <div class="icon-position">                            
+                <mat-icon aria-hidden="false" fontIcon="">login</mat-icon>
+              </div>
+              </a></li>
+            <li><a *ngIf="!isLoggedIn" class="dropdown-item" [routerLink]="'/signup'">
+              Đăng ký
+              <div class="icon-position mg-icon">
+                <mat-icon  aria-hidden="false" fontIcon="">app_registration</mat-icon> 
+              </div>                           
+            </a></li>
+            <li><a *ngIf="isLoggedIn" class="dropdown-item" [routerLink]="'/user/profile'">Hồ sơ
+              <div class="icon-position" style="margin-left: 50px">                            
+                <mat-icon aria-hidden="false" fontIcon="">manage_accounts</mat-icon>
+              </div>
+            </a></li>
+            <li><hr *ngIf="isLoggedIn" class="dropdown-divider"></li>
+            <li><a *ngIf="isLoggedIn" (click)="logout()"class="dropdown-item" href="#">Đăng xuất
+              <div class="icon-position" style="margin-left: 20px">                            
+                <mat-icon aria-hidden="false" fontIcon="">logout</mat-icon>
+              </div>
+            </a></li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+  </header>

@@ -1,0 +1,239 @@
+<div class="container" id="main-container">
+    <div class="row" style="margin-bottom: 15px">
+        <div class="col-sm">
+            <button *ngIf="loginService.getUserRole() == 'ADMIN' || loginService.getUserRole() == 'TEACHER'" (click)="onOpenModal(null, 'add')" mat-raised-button color="primary">
+                <mat-icon aria-hidden="false" fontIcon="">add_circle</mat-icon>
+                Thêm thông tin tuyển dụng mới              
+            </button>
+        </div>
+        <form class="form-inline col-sm my-2 my-lg-0" style="max-width: 300px;">
+            <input type="search" (ngModelChange)="searchJobs(key.value)" #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Tìm kiếm ngôn ngữ lập trình..." required>
+        </form>
+    </div>
+    <div class="row">
+      <div *ngFor="let job of jobs" class="col-md-6 col-xl-3">
+         <div class="card m-b-30">
+            <div class="card-body row">               
+                <a href=""><img src="{{job.company.img}}" alt="" class="img-fluid"></a>                        
+            </div>
+            <div class="row card-title align-self-center" >               
+                <h4>{{job.company.company_name}}</h4>
+            </div>
+            <ul class="list-group list-group-flush">               
+                <li class="list-group-item"><mat-icon matTooltip="Ngôn ngữ lập trình" class="icon-position" aria-hidden="false" fontIcon="">laptop_windows</mat-icon> {{job.language}}</li>
+                <li class="list-group-item"><mat-icon matTooltip="Yêu cầu" class="icon-position" aria-hidden="false" fontIcon="">check_box</mat-icon> {{job.request}}</li>
+                <li class="list-group-item"><mat-icon matTooltip="Thời gian thực tập" class="icon-position" aria-hidden="false" fontIcon="">alarm_on</mat-icon> {{job.time}}</li>
+            </ul>
+            <div class="card-body">
+               <div class="float-right btn-group btn-group-sm">                   
+                    <a (click)="onOpenModal(job, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">
+                        <mat-icon aria-hidden="false" fontIcon="">edit_square</mat-icon>
+                    </a>
+                    <a (click)="onOpenModal(job, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
+                        <mat-icon aria-hidden="false" fontIcon="">delete</mat-icon>
+                    </a>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    
+    <!-- Add Job Modal -->
+    <div class="modal fade" id="addJobModal" tabindex="-1" role="dialog" aria-labelledby="addJobModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h3 class="modal-title" id="addJobModalLabel">THÊM THÔNG TIN TUYỂN DỤNG</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body" style="z-index: 1;">
+              <form #addForm="ngForm" (ngSubmit)="onAddJob(addForm)">
+               <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Ngôn ngữ lập trình</mat-label>
+                     <input matInput type="text"                                
+                     name = "language" 
+                     id="language" 
+                     placeholder="Java"
+                     ngModel required>                                                     
+                  </mat-form-field>
+               </div> 
+               <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Số lượng thực tập sinh</mat-label>
+                     <input matInput type="text"                                
+                     name = "quantity"
+                     id="quantity"  
+                     placeholder="..."
+                     ngModel required>                                                     
+                  </mat-form-field>                  
+               </div>
+               <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Yêu cầu</mat-label>
+                     <input matInput type="text"                                
+                     name = "request"
+                     id="request"  
+                     placeholder="..."
+                     ngModel required>                                                     
+                  </mat-form-field>
+                 </div>        
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Thời gian thực tập</mat-label>
+                     <input matInput type="text"                                
+                     name = "time" 
+                     id="time"  
+                     placeholder="30 giờ/tuần"
+                     ngModel required>                                                     
+                  </mat-form-field>
+                 </div>
+               <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Mô tả chi tiết</mat-label>
+                     <input matInput type="text"                                
+                     name = "description"
+                     id="description"  
+                     placeholder="..."
+                     ngModel required>                                                     
+                  </mat-form-field>                  
+                 </div>
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Ghi chú</mat-label>
+                     <input matInput type="text"                                
+                     name = "note" 
+                     id="note" 
+                     placeholder="..."
+                     ngModel required>                                                     
+                  </mat-form-field>
+                 </div>                      
+                 <div class="form-group">                                                                          
+                      <select name = "company" ngModel class="form-select form-select-lg mb-3 text-change" aria-label=".form-select-lg example">                    
+                        <option class="text-change" 
+                         *ngFor="let c of companyList" [ngValue]="c">
+                              {{c.company_name}}
+                        </option>   
+                      </select>               
+                 </div>
+              <div class="modal-footer">
+                 <button type="button" id="add-job-form" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                 <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Thêm</button>
+              </div>
+              </form>
+           </div>
+        </div>
+      </div>
+      </div>
+    
+    <!-- Edit Modal -->
+    <div class="modal fade" id="updateJobModal" tabindex="-1" role="dialog" aria-labelledby="jobEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h3 class="modal-title" id="updateJobModalLabel">CHỈNH SỬA THÔNG TIN TUYỂN DỤNG</h3>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form #editForm="ngForm">
+                <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Ngôn ngữ lập trình</mat-label>
+                     <input matInput type="text"                                
+                     name = "language"   
+                     placeholder="Java/C#/Python"
+                     ngModel="{{editJob?.language}}">                                                     
+                  </mat-form-field>
+                 </div>
+                 <input type="hidden" ngModel="{{editJob?.jid}}" name="jid" class="form-control" id="jid">     
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Số lượng thực tập sinh</mat-label>
+                     <input matInput type="text"                                
+                     name = "quantity"
+                     placeholder="..."
+                     ngModel="{{editJob?.quantity}}">                                                     
+                  </mat-form-field>
+                 </div>
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Yêu cầu</mat-label>
+                     <input matInput type="text"                                
+                     name = "request"   
+                     placeholder="..."
+                     ngModel="{{editJob?.request}}">                                                     
+                  </mat-form-field>
+                 </div>
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Thời gian thực tập</mat-label>
+                     <input matInput type="text"                                
+                     name = "time"   
+                     placeholder="30 giờ/tuần"
+                     ngModel="{{editJob?.time}}">                                                     
+                  </mat-form-field>                  
+                 </div>
+                 <div class="form-group">                     
+                     <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Mô tả chi tiết</mat-label>
+                        <input matInput type="text"                                
+                        name = "description"   
+                        placeholder="..."
+                        ngModel="{{editJob?.description}}">                                                     
+                     </mat-form-field>                   
+                 </div>
+                 <div class="form-group">                     
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Ghi chú</mat-label>
+                     <input matInput type="text"                                
+                     name = "note"
+                     placeholder="..."
+                     ngModel="{{editJob?.note}}">                                                     
+                  </mat-form-field> 
+                  <div class="form-group">                                                                          
+                     <select name = "company" ngModel="{{editJob?.company}}" class="form-select form-select-lg mb-3 text-change" aria-label=".form-select-lg example">                    
+                       <option class="text-change" 
+                        *ngFor="let c of companyList" [ngValue]="c" >
+                             {{c.company_name}}
+                       </option>   
+                     </select>               
+                </div>                  
+              </div>                
+                  <div class="modal-footer">                    
+                     <button (click)="onUpdateJob(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Lưu thay đổi</button>
+                     <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Đóng</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+    </div>
+    
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteJobModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">XÓA THÔNG TIN TUYỂN DỤNG</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Bạn có chắc muốn xóa thông tin tuyển dụng của công ty: {{deleteJob?.company.company_name}}</p>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button (click)="onDeleteJob(deleteJob?.jid)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    </div>
+ 
+  

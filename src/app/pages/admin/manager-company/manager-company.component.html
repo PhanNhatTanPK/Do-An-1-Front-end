@@ -1,0 +1,202 @@
+<div class="container" id="main-container">
+    <div class="row" style="margin-bottom: 15px">
+        <div class="col-sm">
+            <button (click)="onOpenModal(null, 'add')" mat-raised-button color="primary">
+                <mat-icon aria-hidden="false" fontIcon="">add_circle</mat-icon>
+                Thêm công ty mới                
+            </button>
+        </div>
+        <form class="form-inline col-sm my-2 my-lg-0" style="max-width: 300px;">
+            <input type="search" (ngModelChange)="searchCompanies(key.value)" #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Tìm kiếm công ty..." required>
+        </form>
+    </div>
+    <div class="row">
+      <div *ngFor="let company of companies" class="col-md-6 col-xl-3">
+         <div class="card m-b-30">
+            <div class="card-body row">               
+                <a href=""><img src="{{company.img}}" alt="" class="img-fluid"></a>                        
+            </div>
+            <div class="row card-title align-self-center" >               
+                <h4>{{company.company_name}}</h4>
+            </div>
+            <ul class="list-group list-group-flush">               
+                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">location_on</mat-icon> {{company.company_address}}</li>
+                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">contact_mail</mat-icon> {{company.email}}</li>
+                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">contact_phone</mat-icon> {{company.phone}}</li>
+            </ul>
+            <div class="card-body">
+               <div class="float-right btn-group btn-group-sm">
+                    <a (click)="onOpenModal(company, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">
+                        <mat-icon aria-hidden="false" fontIcon="">edit_square</mat-icon>
+                    </a>
+                    <a (click)="onOpenModal(company, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
+                        <mat-icon aria-hidden="false" fontIcon="">delete</mat-icon>
+                    </a>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    
+    <!-- Add Company Modal -->
+    <div class="modal fade" id="addCompanyModal" tabindex="-1" role="dialog" aria-labelledby="addCompanyModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h3 class="modal-title" id="addCompantModalLabel">THÊM CÔNG TY</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+              <form #addForm="ngForm" (ngSubmit)="onAddCompany(addForm)">
+               <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Tên công ty</mat-label>
+                     <input matInput type="text"                                
+                     name = "company_name"  
+                     id="company_name" 
+                     placeholder="Công ty A"
+                     ngModel required>                                                     
+                  </mat-form-field>
+                 </div>            
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Địa chỉ</mat-label>
+                     <input matInput type="text"                                
+                     name = "company_address" 
+                     id="company_address"  
+                     placeholder="01 An Dương Vương"
+                     ngModel required>                                                     
+                  </mat-form-field>
+                 </div>
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Email</mat-label>
+                     <input matInput type="text"                                
+                     name = "email" 
+                     id="email"  
+                     placeholder="abc@gmail.com"
+                     ngModel required>                                                     
+                  </mat-form-field>
+                 </div>
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Số điện thoại</mat-label>
+                     <input matInput type="text"                                
+                     name = "phone" 
+                     id="phone"  
+                     placeholder="098273xxxx"
+                     ngModel required>                                                     
+                  </mat-form-field>                  
+                 </div>
+                 <div class="form-group">                     
+                     <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Link hình ảnh</mat-label>
+                        <input matInput type="text"                                
+                        name = "img" 
+                        id="img"  
+                        placeholder="https://abc.png"
+                        ngModel required>                                                     
+                     </mat-form-field>                   
+                 </div>
+              <div class="modal-footer">
+                 <button type="button" id="add-company-form" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                 <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Thêm</button>
+              </div>
+              </form>
+           </div>
+        </div>
+      </div>
+      </div>
+    
+    <!-- Edit Modal -->
+    <div class="modal fade" id="updateCompanyModal" tabindex="-1" role="dialog" aria-labelledby="companyEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h3 class="modal-title" id="updateCompanyModalLabel">CHỈNH SỬA THÔNG TIN CÔNG TY</h3>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form #editForm="ngForm">
+                <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Tên công ty</mat-label>
+                     <input matInput type="text"                                
+                     name = "company_name"   
+                     placeholder="Công ty A"
+                     ngModel="{{editCompany?.company_name}}">                                                     
+                  </mat-form-field>
+                 </div>
+                 <input type="hidden" ngModel="{{editCompany?.cid}}" name="cid" class="form-control" id="cid" placeholder="Email">
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Địa chỉ</mat-label>
+                     <input matInput type="text"                                
+                     name = "company_address"   
+                     placeholder="01 An Dương Vương"
+                     ngModel="{{editCompany?.company_address}}">                                                     
+                  </mat-form-field>
+                 </div>
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Email</mat-label>
+                     <input matInput type="text"                                
+                     name = "email"   
+                     placeholder="abc@gmail.com"
+                     ngModel="{{editCompany?.email}}">                                                     
+                  </mat-form-field>
+                 </div>
+                 <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Số điện thoại</mat-label>
+                     <input matInput type="text"                                
+                     name = "phone"   
+                     placeholder="098273xxxx"
+                     ngModel="{{editCompany?.phone}}">                                                     
+                  </mat-form-field>                  
+                 </div>
+                 <div class="form-group">                     
+                     <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Link hình ảnh</mat-label>
+                        <input matInput type="text"                                
+                        name = "img"   
+                        placeholder="https://abc.png"
+                        ngModel="{{editCompany?.img}}">                                                     
+                     </mat-form-field>                   
+                 </div>               
+                  <div class="modal-footer">                    
+                     <button (click)="onUpdateCompany(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Lưu thay đổi</button>
+                     <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Đóng</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+    </div>
+    
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteCompanyModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">XÓA CÔNG TY</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Bạn có chắc muốn xóa công ty: "{{deleteCompany?.company_name}}"</p>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button (click)="onDeleteCompany(deleteCompany?.cid)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    </div>
