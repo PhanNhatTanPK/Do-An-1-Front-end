@@ -1,0 +1,147 @@
+<div class="container" id="main-container">
+    <div id="addReportModal" class="mb-20">
+        <form #addForm="ngForm" (ngSubmit)="onAddReport(addForm)">
+            <mat-card>
+                <h3>Nhật ký thực tập</h3>
+                <div class="row">
+                    <input type="hidden" name="userCode" ngModel="{{user.userCode}}">
+                    <div class="form-group col">
+                        <mat-form-field class="form-control p0"  appearance="outline">
+                            <mat-label>Ngày thực tập</mat-label>
+                            <input matInput type="text"                                
+                            name = "workDate" 
+                            id= "workDate"  
+                            placeholder="DD/MM"
+                            ngModel>                                                     
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group col">
+                        <mat-form-field class="form-control p0"  appearance="outline">
+                            <mat-label>Công việc thực hiện</mat-label>
+                            <textarea  matInput type="text"                                
+                            name = "work" 
+                            id= "work"  
+                            placeholder="..."
+                            ngModel> </textarea>                                                    
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group col">
+                        <mat-form-field class="form-control p0"  appearance="outline">
+                            <mat-label>Thời gian</mat-label>
+                            <input matInput type="text"                                
+                            name = "time" 
+                            id= "time"  
+                            placeholder="9h - 10h"
+                            ngModel>                                                     
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <button [disabled]="addForm.invalid" type="submit" class="btn-add btn btn-primary" >Thêm</button>
+                </div>
+            </mat-card>
+        </form>   
+    </div>
+
+    <mat-card>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Ngày thực tập</th>
+                    <th scope="col">Công việc thực hiện</th>
+                    <th scope="col">Thời gian</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let report of reports">                
+                    <td>{{report.workDate}}</td>
+                    <td>{{report.work}}</td>
+                    <td>{{report.time}}</td>
+                    <td>
+                        <a (click)="onOpenModal(report, 'edit')" class="primary" data-original-title="Edit">
+                            <mat-icon aria-hidden="false" fontIcon="">edit_square</mat-icon>
+                        </a>
+                    </td>
+                    <td>
+                        <a (click)="onOpenModal(report, 'delete')" class="" data-original-title="Delete">
+                            <mat-icon aria-hidden="false" fontIcon="">delete</mat-icon>
+                        </a>
+                    </td>
+                </tr>               
+              </tbody>
+        </table>
+    </mat-card>
+    
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="updateReportModal" tabindex="-1" role="dialog" aria-labelledby="reportEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <h3 class="modal-title" id="updateReportModalLabel">CHỈNH SỬA BÁO CÁO</h3>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body">
+                 <form #editForm="ngForm"> 
+                                    
+                   <div class="form-group">
+                    <mat-form-field class="form-control p0"  appearance="outline">
+                       <mat-label>Ngày thực tập</mat-label>
+                       <input matInput type="text"                                
+                       name = "workDate"   
+                       placeholder="30 giờ/tuần"
+                       ngModel="{{editReport?.workDate}}">                                                     
+                    </mat-form-field>                  
+                   </div>
+                   <input type="hidden" ngModel="{{editReport?.id}}" name="id">
+                   <div class="form-group mb-20">                     
+                       <mat-form-field class="form-control p0"  appearance="outline">
+                          <mat-label>Công việc thực hiện</mat-label>
+                          <input matInput type="text"                                
+                          name = "work"   
+                          placeholder="..."
+                          ngModel="{{editReport?.work}}">                                                     
+                       </mat-form-field>                                 
+                   </div>
+                   <div class="form-group">                     
+                    <mat-form-field class="form-control p0"  appearance="outline">
+                       <mat-label>Thời gian</mat-label>
+                       <input matInput type="text"                                
+                       name = "time"
+                       placeholder="..."
+                       ngModel="{{editReport?.time}}">                                                     
+                    </mat-form-field>                        
+                </div>                
+                    <div class="modal-footer">                    
+                       <button (click)="onUpdateReport(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Lưu thay đổi</button>
+                       <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Đóng</button>
+                    </div>
+                 </form>
+              </div>
+           </div>
+        </div>
+    </div>
+      
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteReportModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModelLabel">XÓA BÁO CÁO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc muốn xóa báo cáo này</p>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button (click)="onDeleteReport(deleteReport?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

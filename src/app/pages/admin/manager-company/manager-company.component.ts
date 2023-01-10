@@ -29,7 +29,11 @@ export class ManagerCompanyComponent implements OnInit {
         console.log(this.companies);
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        console.log(error);
+        this.snack.open("Chưa có thông tin về công ty nào", "Đóng", {
+        duration: 2000,
+        verticalPosition: "top",
+       });
       }
     );
   }
@@ -50,7 +54,7 @@ export class ManagerCompanyComponent implements OnInit {
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
-        this.snack.open("Đăng ký thất bại", "Đóng", {
+        this.snack.open("Thêm công ty thất bại", "Đóng", {
           duration: 2000,
           verticalPosition: "top",
          });
@@ -73,7 +77,11 @@ export class ManagerCompanyComponent implements OnInit {
         this.getAllCompany();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        console.log(error);
+        this.snack.open("Cập nhật thông tin công ty thất bại!", "Đóng", {
+        duration: 2000,
+        verticalPosition: "top",
+       });
       }
     );
   }
@@ -82,10 +90,21 @@ export class ManagerCompanyComponent implements OnInit {
     this.companyService.deleteCompany(id).subscribe(
       (response: void) => {
         console.log(response);
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Xóa công ty thành công',
+          showConfirmButton: false,
+          timer: 1500
+        })
         this.getAllCompany();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        console.log(error);
+        this.snack.open("Xóa công ty thất bại", "Đóng", {
+        duration: 2000,
+        verticalPosition: "top",
+       });
       }
     );
   }
@@ -99,7 +118,7 @@ export class ManagerCompanyComponent implements OnInit {
       }
     }
     this.companies = results;
-    if (results.length === 0 || !key) {
+    if (!key) {
       this.getAllCompany();
     }
   }

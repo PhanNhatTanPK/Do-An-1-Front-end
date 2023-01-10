@@ -1,0 +1,103 @@
+<div class="row" style="margin-left: auto; margin-right: auto;">
+    <mat-card class="col-md-3" style="margin-left: 60px; margin-right: 30px;">
+        <mat-card-header>
+          <mat-card-title-group class="center">
+            <mat-card-title>{{numberTeacher}}</mat-card-title>
+            <mat-card-subtitle>Giảng viên</mat-card-subtitle> 
+            <div class="position-card"><img class="icon-size" src="https://atlantapartnersrealestateschool.com/wp-content/uploads/2017/03/Classroom-300x300.png" alt=""></div>         
+          </mat-card-title-group>            
+        </mat-card-header>
+        <mat-card-actions class="center">
+            <button mat-button matTooltip="Xuất danh sách giảng viên" (click) = "exportTeacher();"><img class="img-size" src="https://brocku.ca/information-technology/wp-content/uploads/sites/56/icon-excel-space-1.png?x81973" alt=""></button>        
+          </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="col-md-3 mlr-10">
+        <mat-card-header>
+          <mat-card-title-group class="center">
+            <mat-card-title>{{numberStudent}}</mat-card-title>
+            <mat-card-subtitle>Sinh viên</mat-card-subtitle> 
+            <div class="position-card"><img class="icon-size" src="https://capitolhighbr.org/wp-content/uploads/2017/02/icon-1-120x120.png" alt=""></div>         
+          </mat-card-title-group>            
+        </mat-card-header>
+        <mat-card-actions  class="center">
+          <button mat-button matTooltip="Xuất danh sách sinh viên" (click) = "exportStudent();"><img class="img-size" src="https://brocku.ca/information-technology/wp-content/uploads/sites/56/icon-excel-space-1.png?x81973" alt=""></button>
+          <button mat-button matTooltip="Xuất kết quả thực tập" (click) = "exportResult();"><img class="img-size" src="https://brocku.ca/information-technology/wp-content/uploads/sites/56/icon-excel-space-1.png?x81973" alt=""></button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="col-md-3 mlr-10" >
+        <mat-card-header>
+          <mat-card-title-group class="center">
+            <mat-card-title>{{numberCompany}}</mat-card-title>
+            <mat-card-subtitle>Công ty</mat-card-subtitle> 
+            <div class="position-card"><img class="icon-size" src="https://clampco.it/wp-content/uploads/2020/02/Building-Red.png" alt=""></div>         
+          </mat-card-title-group>            
+        </mat-card-header>
+        <mat-card-actions class="center">
+            <button mat-button matTooltip="Xuất danh sách công ty" (click) = "exportCompany();"><img class="img-size" src="https://brocku.ca/information-technology/wp-content/uploads/sites/56/icon-excel-space-1.png?x81973" alt=""></button>
+          </mat-card-actions>
+    </mat-card>  
+</div>
+<div class="row mt-20">
+  <mat-card class="col-md-7 mlr-10 scroll">
+      <table class="table table-hover ">
+          <thead>
+              <tr>
+                  <th scope="col">Mã sinh viên</th>
+                  <th scope="col">Họ và tên</th>
+                  <th scope="col">Email</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let student of students">                
+                  <td>{{student.userCode}}</td>
+                  <td>{{student.fullName}}</td>
+                  <td>{{student.email}}</td>
+              </tr>               
+            </tbody>
+      </table>
+  </mat-card>  
+  
+  <mat-card class="col mlr-10 scroll">
+      <table class="table table-hover">
+          <thead>
+              <tr>
+                  <th scope="col">Cơ sở thực tập</th>
+                  <th scope="col">Địa chỉ</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let company of companies">                
+                <td>{{company.company_name}}</td>
+                <td>{{company.company_address}}</td>
+              </tr>               
+            </tbody>
+      </table>
+  </mat-card>  
+</div>
+
+<div class="row mt-20">
+  <mat-card class="mlr-10">
+      <table class="table table-hover scroll">
+          <thead>
+              <tr>
+                  <th scope="col">Mã giảng viên</th>
+                  <th scope="col">Họ và tên</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Số điện thoại</th>
+                  <th scope="col">Địa chỉ</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let teacher of teachers">                
+              <td>{{teacher.userCode}}</td>
+              <td>{{teacher.fullName}}</td>
+              <td>{{teacher.email}}</td>
+              <td>{{teacher.phone}}</td>
+              <td>{{teacher.address}}</td>
+            </tr>                  
+            </tbody>
+      </table>
+  </mat-card>
+</div>

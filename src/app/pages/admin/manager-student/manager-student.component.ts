@@ -5,6 +5,7 @@ import { User } from 'src/app/model/User';
 import { UserService } from 'src/app/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2'
+import { ExportService } from 'src/app/services/export.service';
 
 @Component({
   selector: 'app-manager-student',
@@ -17,7 +18,7 @@ export class ManagerStudentComponent implements OnInit {
   public editStudent: User;
   public deleteStudent: User;
 
-  constructor(private userService: UserService, private snack:MatSnackBar){}
+  constructor(private userService: UserService, private snack:MatSnackBar, private exportService: ExportService){}
 
   ngOnInit() {
     this.getAllStudent();
@@ -37,7 +38,7 @@ export class ManagerStudentComponent implements OnInit {
 
   public onAddStudent(addForm: NgForm): void {
     document.getElementById('add-student-form').click();
-    this.userService.addUser(addForm.value).subscribe(
+    this.userService.addStudent(addForm.value).subscribe(
       (response: User) => {
         console.log(response);
         Swal.fire({
@@ -83,7 +84,7 @@ export class ManagerStudentComponent implements OnInit {
       }
     }
     this.students = results;
-    if (results.length === 0 || !key) {
+    if (!key) {
       this.getAllStudent();
     }
   }
@@ -105,5 +106,5 @@ export class ManagerStudentComponent implements OnInit {
     button.click();
   }
 
-
+  
 }

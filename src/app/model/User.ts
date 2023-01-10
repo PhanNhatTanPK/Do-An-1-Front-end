@@ -1,5 +1,5 @@
 export interface User {
-    id: number
+    id: number,
     userCode: string,
     fullName: string,
     password: string,

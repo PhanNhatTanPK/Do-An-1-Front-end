@@ -15,14 +15,14 @@ export class CompanyService {
   }
 
   public addCompany(company: Company): Observable<Company> {
-    return this.http.post<Company>(`${baseUrl}/company/create`, company);
+    return this.http.post<Company>(`${baseUrl}/company/`, company);
   }
 
   public updateCompany(company: Company): Observable<Company> {
-    return this.http.put<Company>(`${baseUrl}/company/update`, company);
+    return this.http.put<Company>(`${baseUrl}/company/`, company);
   }
 
   public deleteCompany(id: number): Observable<void> {
-    return this.http.delete<void>(`${baseUrl}/company/delete/${id}`);
+    return this.http.delete<void>(`${baseUrl}/company/${id}`);
   }
 }

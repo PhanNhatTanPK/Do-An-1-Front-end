@@ -5,6 +5,9 @@ import { New } from 'src/app/model/New';
 import { NewService } from 'src/app/services/new.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2'
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { User } from 'src/app/model/User';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -13,15 +16,32 @@ import Swal from 'sweetalert2'
   styleUrls: ['./manager-new.component.css']
 })
 export class ManagerNewComponent implements OnInit {
+  
+  public Editor = ClassicEditor;
   public news: New[];
   public editNew: New;
+  public detailNew: New;
   public deleteNew: New;
+  public adminData: User[];
 
 
-  constructor(private newService: NewService, private snack:MatSnackBar){}
+  constructor(private newService: NewService, private userService: UserService, private snack:MatSnackBar){}
 
   ngOnInit() {
     this.getAllNew();
+    this.getInfoAdmin();
+  }
+
+  public getInfoAdmin(): void {
+    this.userService.getInfoAdmin().subscribe(
+      (response: User[]) => {
+        this.adminData = response;
+        console.log(this.news);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
   public getAllNew(): void {
@@ -97,12 +117,13 @@ export class ManagerNewComponent implements OnInit {
     console.log(key);
     const results: New[] = [];
     for (const newData of this.news) {
-      if (newData.title.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+      if (newData.title.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+          newData.short_description.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         results.push(newData);
       }
     }
     this.news = results;
-    if (results.length === 0 || !key) {
+    if (!key) {
       this.getAllNew();
     }
   }
@@ -117,7 +138,12 @@ export class ManagerNewComponent implements OnInit {
       button.setAttribute('data-target', '#addNewModal');
     }
     if (mode === 'edit') {
+      this.editNew = newData;
       button.setAttribute('data-target', '#updateNewModal');
+    }
+    if (mode === 'detail') {
+      this.detailNew = newData;
+      button.setAttribute('data-target', '#detailNewModal');
     }
     if (mode === 'delete') {
       this.deleteNew = newData;

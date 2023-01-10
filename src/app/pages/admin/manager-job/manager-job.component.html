@@ -8,7 +8,7 @@
         </div>
         <form class="form-inline col-sm my-2 my-lg-0" style="max-width: 300px;">
             <input type="search" (ngModelChange)="searchJobs(key.value)" #key="ngModel" ngModel
-             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Tìm kiếm ngôn ngữ lập trình..." required>
+             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Tìm kiếm thông tin tuyển dụng..." required>
         </form>
     </div>
     <div class="row">
@@ -27,10 +27,10 @@
             </ul>
             <div class="card-body">
                <div class="float-right btn-group btn-group-sm">                   
-                    <a (click)="onOpenModal(job, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">
+                    <a (click)="onOpenModal(job, 'edit')" matTooltip="Chỉnh sửa" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">
                         <mat-icon aria-hidden="false" fontIcon="">edit_square</mat-icon>
                     </a>
-                    <a (click)="onOpenModal(job, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
+                    <a (click)="onOpenModal(job, 'delete')" matTooltip="Xóa" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
                         <mat-icon aria-hidden="false" fontIcon="">delete</mat-icon>
                     </a>
                </div>
@@ -91,15 +91,19 @@
                      ngModel required>                                                     
                   </mat-form-field>
                  </div>
-               <div class="form-group">
-                  <mat-form-field class="form-control p0"  appearance="outline">
+               <div class="form-group mb-20">
+                  <!-- <mat-form-field class="form-control p0"  appearance="outline">
                      <mat-label>Mô tả chi tiết</mat-label>
                      <input matInput type="text"                                
                      name = "description"
                      id="description"  
                      placeholder="..."
                      ngModel required>                                                     
-                  </mat-form-field>                  
+                  </mat-form-field>  -->
+                  <mat-label>Mô tả chi tiết</mat-label>
+                  <ckeditor [editor]="Editor"  
+                     name="description" ngModel id="description">                   
+                  </ckeditor>                 
                  </div>
                  <div class="form-group">
                   <mat-form-field class="form-control p0"  appearance="outline">
@@ -178,14 +182,17 @@
                      ngModel="{{editJob?.time}}">                                                     
                   </mat-form-field>                  
                  </div>
-                 <div class="form-group">                     
-                     <mat-form-field class="form-control p0"  appearance="outline">
+                 <div class="form-group mb-20">                     
+                     <!-- <mat-form-field class="form-control p0"  appearance="outline">
                         <mat-label>Mô tả chi tiết</mat-label>
                         <input matInput type="text"                                
                         name = "description"   
                         placeholder="..."
                         ngModel="{{editJob?.description}}">                                                     
-                     </mat-form-field>                   
+                     </mat-form-field>  -->
+                     <ckeditor [editor]="Editor"
+                        name="description" ngModel="{{editJob?.description}}" id="description">                   
+                     </ckeditor>           
                  </div>
                  <div class="form-group">                     
                   <mat-form-field class="form-control p0"  appearance="outline">
@@ -196,7 +203,7 @@
                      ngModel="{{editJob?.note}}">                                                     
                   </mat-form-field> 
                   <div class="form-group">                                                                          
-                     <select name = "company" ngModel="{{editJob?.company}}" class="form-select form-select-lg mb-3 text-change" aria-label=".form-select-lg example">                    
+                     <select name = "company" [ngModel]="editJob?.company" class="form-select form-select-lg mb-3 text-change" aria-label=".form-select-lg example">                    
                        <option class="text-change" 
                         *ngFor="let c of companyList" [ngValue]="c" >
                              {{c.company_name}}

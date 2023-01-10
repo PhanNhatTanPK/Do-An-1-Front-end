@@ -1,0 +1,41 @@
+<div class="container" id="main-container">
+    <div id="FindReportModal" class="mb-20">
+        <form >
+            <mat-card>
+                <div class="row">
+                    <div class="form-group col">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Chọn mã sinh viên</mat-label>
+                            <mat-select (ngModelChange)="onFindReport(key.value)" #key="ngModel" ngModel
+                            name="key">
+                                <mat-option>Làm mới</mat-option>
+                                <mat-option *ngFor="let student of students" value="{{student.userCode}}">
+                                    {{student.userCode}}
+                                </mat-option>                              
+                            </mat-select>
+                        </mat-form-field> 
+                    </div>  
+                </div>              
+            </mat-card>
+        </form>   
+    </div>
+
+    <mat-card *ngIf="reports !== null" style="margin-top: 20px;">
+        <table class="table table-hover">
+            <thead >
+                <tr>
+                    <th scope="col">Ngày thực tập</th>
+                    <th scope="col">Công việc thực hiện</th>
+                    <th scope="col">Thời gian</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let report of reports">                
+                    <td>{{report.workDate}}</td>
+                    <td>{{report.work}}</td>
+                    <td>{{report.time}}</td>                   
+                </tr>               
+              </tbody>
+        </table>
+    </mat-card>
+</div>

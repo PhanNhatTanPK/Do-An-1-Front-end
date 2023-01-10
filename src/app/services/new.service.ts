@@ -16,14 +16,14 @@ export class NewService {
   }
 
   public addNew(newData:New):  Observable<New>{
-    return this.http.post<New>(`${baseUrl}/new/create`, newData);
+    return this.http.post<New>(`${baseUrl}/new/`, newData);
   }
 
   public updateNew(newData: New): Observable<New> {
-    return this.http.put<New>(`${baseUrl}/new/update`, newData);
+    return this.http.put<New>(`${baseUrl}/new/`, newData);
   }
 
   public deleteNew(id: number): Observable<void> {
-    return this.http.delete<void>(`${baseUrl}/new/delete/${id}`);
+    return this.http.delete<void>(`${baseUrl}/new/${id}`);
   }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import baseUrl from './helper'
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,7 @@ export class LoginService {
       return null;
     }
   }
+
 
   // Lấy quyền truy cập của người dùng
   public getUserRole() {

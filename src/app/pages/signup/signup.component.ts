@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
       return;
     }
      // Thêm người dùng
-    this.userSerive.addUser(this.user).subscribe(
+    this.userSerive.addStudent(this.user).subscribe(
       (data) => {
         //Thành công
         console.log(data);
@@ -52,7 +52,7 @@ export class SignupComponent implements OnInit {
       // Thất bại
       (error) =>{
         console.log(error);
-       this.snack.open("Đăng ký thất bại", "Đóng", {
+        this.snack.open("Đăng ký thật bại. Mã sinh viên này đã tồn tại!", "Đóng", {
         duration: 2000,
         verticalPosition: "top",
        });

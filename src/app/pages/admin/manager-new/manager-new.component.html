@@ -21,14 +21,18 @@
                 <h4>{{newData.title}}</h4>
             </div>
             <ul class="list-group list-group-flush">               
-                <li class="list-group-item">{{newData.short_description}}</li>
+                <li class="list-group-item"><p>Mô tả ngắn:</p> {{newData.short_description}}</li>
+                <!-- <li class="list-group-item" [innerHTML]="newData.content"></li> -->
             </ul>
             <div class="card-body">
                <div class="float-right btn-group btn-group-sm"> 
-                  <a (click)="onOpenModal(newData, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">
+                  <a (click)="onOpenModal(newData, 'edit')" matTooltip="Chỉnh sửa" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">
                      <mat-icon aria-hidden="false" fontIcon="">edit_square</mat-icon>
-                  </a>               
-                  <a (click)="onOpenModal(newData, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
+                  </a>
+                  <a (click)="onOpenModal(newData, 'detail')" matTooltip="Chi tiết" class="btn btn-success tooltips" data-placement="top" data-original-title="Detail">
+                     <mat-icon aria-hidden="false" fontIcon="">edit_note</mat-icon>
+                  </a>                
+                  <a (click)="onOpenModal(newData, 'delete')" matTooltip="Xóa" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
                      <mat-icon aria-hidden="false" fontIcon="">delete</mat-icon>
                   </a>
                </div>
@@ -37,7 +41,7 @@
       </div>
     </div>
     
-    <!-- Add Company Modal -->
+    <!-- Add Modal -->
     <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="addNewModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -69,26 +73,29 @@
                      ngModel required>                                                     
                   </mat-form-field>
                  </div>
-                 <div class="form-group">
-                    <mat-form-field class="form-control p0" appearance="outline">
+                 <div class="form-group mb-20">
+                     <!-- <mat-form-field class="form-control p0" appearance="outline">
                         <mat-label>Nội dung</mat-label>
                         <input matInput type="text"                        
                         name="content" 
                         id="content"
                         placeholder="..." 
-                        ngModel required>                    
-                    </mat-form-field>
+                        ngModel required>                        
+                    </mat-form-field>  -->
+                    <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"
+                     name="content" ngModel id="content">                   
+                     </ckeditor>
                  </div>
                  <div class="form-group">                     
-                    <mat-form-field class="form-control p0"  appearance="outline">
-                       <mat-label>Link hình ảnh</mat-label>
-                       <input matInput type="text"                                
-                       name = "image" 
-                       id="image"  
-                       placeholder="https:\\abc"
-                       ngModel required>                                                     
-                    </mat-form-field>                   
-                </div>                 
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Ngày đăng</mat-label>
+                     <input matInput type="text"                                
+                     name = "date" 
+                     id="date"  
+                     placeholder="https:\\abc"
+                     ngModel required>                                                     
+                  </mat-form-field>                   
+                  </div>                                  
               <div class="modal-footer">
                  <button type="button" id="add-new-form" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                  <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Thêm</button>
@@ -99,64 +106,106 @@
       </div>
       </div>
 
-    <!-- Edit Modal -->
+   <!-- Edit Modal -->
    <div class="modal fade" id="updateNewModal" tabindex="-1" role="dialog" aria-labelledby="newEditModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h3 class="modal-title" id="updateNewModalLabel">CHỈNH SỬA THÔNG TIN TIN TỨC</h3>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-             </button>
-          </div>
-          <div class="modal-body">
-             <form #editForm="ngForm">
-              <div class="form-group">
-                <mat-form-field class="form-control p0"  appearance="outline">
-                   <mat-label>Tiêu đề</mat-label>
-                   <input matInput type="text"                                
-                   name = "title"   
-                   placeholder="..."
-                   ngModel="{{editNew?.title}}">                                                     
-                </mat-form-field>
-               </div>
-               <input type="hidden" ngModel="{{editNew?.id}}" name="id" class="form-control" id="id">     
-               <div class="form-group">
-                <mat-form-field class="form-control p0"  appearance="outline">
-                   <mat-label>Số lượng thực tập sinh</mat-label>
-                   <input matInput type="text"                                
-                   name = "short_description"
-                   placeholder="..."
-                   ngModel="{{editNew?.short_description}}">                                                     
-                </mat-form-field>
-               </div>
-               <div class="form-group">
-                <mat-form-field class="form-control p0"  appearance="outline">
-                   <mat-label>Yêu cầu</mat-label>
-                   <input matInput type="text"                                
-                   name = "content"   
-                   placeholder="..."
-                   ngModel="{{editNew?.content}}">                                                     
-                </mat-form-field>
-               </div>
-               <div class="form-group">
-                <mat-form-field class="form-control p0"  appearance="outline">
-                   <mat-label>Link hình ảnh</mat-label>
-                   <input matInput type="text"                                
-                   name = "image"   
-                   placeholder="..."
-                   ngModel="{{editNew?.image}}">                                                     
-                </mat-form-field>                  
-               </div>                  
-                <div class="modal-footer">                    
-                   <button (click)="onUpdateNew(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Lưu thay đổi</button>
-                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Đóng</button>
-                </div>
-             </form>
-          </div>
-       </div>
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h3 class="modal-title" id="updateNewModalLabel">CHỈNH SỬA THÔNG TIN TUYỂN DỤNG</h3>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form #editForm="ngForm">     
+                  <div class="form-group">
+                     <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Tiêu đề</mat-label>
+                        <input matInput type="text"                                
+                        name = "title"                        
+                        placeholder="..."
+                        ngModel="{{editNew?.title}}" required>                                                     
+                     </mat-form-field>
+                    </div>    
+                    <input type="hidden" ngModel="{{editNew?.id}}" class="form-control" name="id" id="id">        
+                    <div class="form-group">
+                     <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Mô tả ngắn</mat-label>
+                        <input matInput type="text"                                
+                        name = "short_description" 
+                        id="short_description"  
+                        placeholder="..."
+                        ngModel='{{editNew?.short_description}}' required>                                                     
+                     </mat-form-field>
+                    </div>
+                    <div class="form-group mb-20">
+                        <!-- <mat-form-field class="form-control p0" appearance="outline">
+                           <mat-label>Nội dung</mat-label>
+                           <input matInput type="text"                        
+                           name="content" 
+                           id="content"
+                           placeholder="..." 
+                           ngModel required>                        
+                       </mat-form-field>  -->
+                       <ckeditor [editor]="Editor" data="{{editNew?.content}}"
+                           name="content" ngModel="{{editNew?.content}}" id="content">                   
+                        </ckeditor>
+                    </div>
+                    <div class="form-group">                     
+                     <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Ngày đăng</mat-label>
+                        <input matInput type="text"                                
+                        name = "date" 
+                        id="date"  
+                        placeholder="DD/MM/YYYY"
+                        ngModel="{{editNew?.date}}" required>                                                     
+                     </mat-form-field>                   
+                     </div>
+                    <div class="form-group">                     
+                       <mat-form-field class="form-control p0"  appearance="outline">
+                          <mat-label>Link hình ảnh</mat-label>
+                          <input matInput type="text"                                
+                          name = "image" 
+                          id="image"  
+                          placeholder="https:\\abc"
+                          ngModel="{{editNew?.image}}" required>                                                     
+                       </mat-form-field>                   
+                   </div>             
+                  <div class="modal-footer">                    
+                     <button (click)="onUpdateNew(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Lưu thay đổi</button>
+                     <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Đóng</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
     </div>
-  </div>
+
+     <!-- Detail Modal -->
+     <div class="modal fade" id="detailNewModal" tabindex="-1" role="dialog" aria-labelledby="detailModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">          
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <mat-card *ngFor="let admin of adminData" class="example-card">
+                  <mat-card-header>
+                    <img class="example-header-image" mat-card-avatar src="{{admin?.profile}}">
+                    <mat-card-title>{{admin?.fullName}}</mat-card-title>
+                    <mat-card-subtitle>{{detailNew?.date}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content >
+                     {{detailNew?.title}} 
+                     <div [innerHTML]="detailNew?.content"></div>
+                  </mat-card-content>                
+                </mat-card>
+            </div>
+         </div>
+      </div>
+    </div>
     
     <!-- Delete Modal -->
     <div class="modal fade" id="deleteNewModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
@@ -169,7 +218,7 @@
                </button>
             </div>
             <div class="modal-body">
-               <p>Bạn có chắc muốn xóa sinh viên: "{{deleteNew?.title}}"</p>
+               <p>Bạn có chắc muốn xóa tin: {{deleteNew?.title}}</p>
                <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                   <button (click)="onDeleteNew(deleteNew?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>

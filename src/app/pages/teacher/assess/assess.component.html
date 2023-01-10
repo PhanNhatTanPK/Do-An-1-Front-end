@@ -1,0 +1,185 @@
+<div class="container" id="main-container">
+    <div class="row" style="margin-bottom: 15px">
+        <div class="col-sm">
+            <button (click)="onOpenModal(null, 'add')" mat-raised-button color="primary">
+                <mat-icon aria-hidden="false" fontIcon="">add_circle</mat-icon>
+                Thêm đánh giá mới              
+            </button>
+        </div>
+        <form class="form-inline col-sm my-2 my-lg-0" style="max-width: 300px;">
+            <input type="search" (ngModelChange)="searchResults(key.value)" #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Tìm kiếm đánh giá..." required>
+        </form>
+    </div>
+    <div class="row">
+      <div *ngFor="let result of results" class="col-md-6 col-xl-3">
+         <div  class="card m-b-30">
+            <div >
+               <div *ngFor="let student of students" style="margin: 5%">               
+                   <a href=""><img *ngIf="student.userCode == result.userCode" style="min-width: 180px;"  src="{{student?.profile}}" alt="" class="img-fluid"></a>                        
+               </div>
+               <div *ngFor="let student of students" style="text-align: center;">               
+                   <h4 *ngIf="student.userCode == result.userCode">{{student?.fullName}}</h4>
+               </div>
+            </div>
+            <ul class="list-group list-group-flush">               
+                <li class="list-group-item"><mat-icon matTooltip="Điểm " class="icon-position" aria-hidden="false" fontIcon="">rate_review</mat-icon> {{result.totalPoint}}</li>
+            </ul>
+            <div class="card-body">
+               <div class="float-right btn-group btn-group-sm">                   
+                    <a (click)="onOpenModal(result, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">
+                        <mat-icon aria-hidden="false" fontIcon="">edit_square</mat-icon>
+                    </a>
+                    <a (click)="onOpenModal(result, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
+                        <mat-icon aria-hidden="false" fontIcon="">delete</mat-icon>
+                    </a>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    
+    <!-- Add Result Modal -->
+    <div class="modal fade" id="addResultModal" tabindex="-1" role="dialog" aria-labelledby="addResultModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h3 class="modal-title" id="addResultModalLabel">THÊM THÔNG TIN TUYỂN DỤNG</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body" style="z-index: 1;">
+              <form #addForm="ngForm" (ngSubmit)="onAddResult(addForm)">
+               <div class="form-group">
+                  <select name = "userCode" ngModel class="form-select form-select-lg mb-3 text-change" aria-label=".form-select-lg example">                    
+                     <option class="text-change" 
+                      *ngFor="let student of students" [ngValue]="student.userCode">
+                           {{student.userCode}}
+                     </option>   
+                   </select>  
+              </div>
+               <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Điểm của giảng viên</mat-label>
+                     <input matInput type="text"                                
+                     name = "lecturePoint" 
+                     id="lecturePoint" 
+                     placeholder="..."
+                     ngModel required>                                                     
+                  </mat-form-field>
+               </div> 
+               <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Điểm người hướng dẫn</mat-label>
+                     <input matInput type="text"                                
+                     name = "instructorPoint"
+                     id="instructorPoint"  
+                     placeholder="..."
+                     ngModel required>                                                     
+                  </mat-form-field>                  
+               </div>
+               <div class="form-group">
+                  <mat-form-field class="form-control p0"  appearance="outline">
+                     <mat-label>Ghi chú</mat-label>
+                     <textarea  matInput type="text"                                
+                     name = "comment"
+                     id="comment"  
+                     placeholder="..."
+                     ngModel required> </textarea>                                                    
+                  </mat-form-field>
+                 </div>        
+              <div class="modal-footer">
+                 <button type="button" id="add-Result-form" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                 <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Thêm</button>
+              </div>
+              </form>
+           </div>
+        </div>
+      </div>
+      </div>
+    
+    <!-- Edit Modal -->
+    <div class="modal fade" id="updateResultModal" tabindex="-1" role="dialog" aria-labelledby="resultEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h3 class="modal-title" id="updateResultModalLabel">CHỈNH SỬA ĐÁNH GIÁ</h3>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form #editForm="ngForm">
+                  <input type="hidden" name="id" ngModel="{{editResult?.id}}">
+                  <div class="form-group ">
+                     <select name = "userCode" id="userCode" ngModel="{{editResult?.userCode}}" class="form-select form-select-lg mb-3 text-change" aria-label=".form-select-lg example">                    
+                        <option class="text-change" 
+                         *ngFor="let student of students" [ngValue]="student.userCode">
+                              {{student.userCode}}
+                        </option>   
+                      </select>  
+                 </div>
+                  <div class="form-group">
+                     <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Điểm của giảng viên</mat-label>
+                        <input matInput type="text"                                
+                        name = "lecturePoint" 
+                        id="lecturePoint" 
+                        placeholder="..."
+                        ngModel="{{editResult?.lecturePoint}}" required>                                                     
+                     </mat-form-field>
+                  </div> 
+                  <div class="form-group">
+                     <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Điểm người hướng dẫn</mat-label>
+                        <input matInput type="text"                                
+                        name = "instructorPoint"
+                        id="instructorPoint"  
+                        placeholder="..."
+                        ngModel="{{editResult?.instructorPoint}}" required>                                                     
+                     </mat-form-field>                  
+                  </div>
+                  <div class="form-group">
+                     <mat-form-field class="form-control p0"  appearance="outline">
+                        <mat-label>Ghi chú</mat-label>
+                        <textarea  matInput type="text"                                
+                        name = "comment"
+                        id="comment"  
+                        placeholder="..."
+                        ngModel="{{editResult?.comment}}" required> </textarea>                                                    
+                     </mat-form-field>
+                    </div>          
+                  <div class="modal-footer">                    
+                     <button (click)="onUpdateResult(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Lưu thay đổi</button>
+                     <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Đóng</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+    </div>
+    
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteResultModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">XÓA ĐÁNH GIÁ</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Bạn có chắc muốn xóa đánh giá này</p>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button (click)="onDeleteResult(deleteResult?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    </div>
+ 
+  

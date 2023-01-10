@@ -8,6 +8,7 @@ import { Job } from 'src/app/model/Job';
 import { CompanyService } from 'src/app/services/company.service';
 import { LoginService } from 'src/app/services/login.service';
 import { JobService } from 'src/app/services/job.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-manager-job',
@@ -22,6 +23,7 @@ export class ManagerJobComponent implements OnInit {
   public deleteJob: Job;
   public companyList: Company[];
   public company: Company;
+  public Editor = ClassicEditor;
 
   constructor(private jobService: JobService, public companyService:CompanyService, public loginService: LoginService, private snack:MatSnackBar){}
 
@@ -42,6 +44,7 @@ export class ManagerJobComponent implements OnInit {
       }
     );
   }
+  
   public getAllCompany(): void {
     this.companyService.getAllCompany().subscribe(
       (response: Company[]) => {
@@ -50,9 +53,14 @@ export class ManagerJobComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
+        this.snack.open("Có lỗi xảy ra! Không lấy được thông tin", "Đóng", {
+          duration: 2000,
+          verticalPosition: "top",
+         });
       }
     );
   }
+  
   public onAddJob(addForm: NgForm): void {
     document.getElementById('add-job-form').click();
     this.jobService.addJob(addForm.value).subscribe(
@@ -61,7 +69,7 @@ export class ManagerJobComponent implements OnInit {
         Swal.fire({
           position: 'top',
           icon: 'success',
-          title: 'Thêm công ty thành công',
+          title: 'Thêm thông tin thành công',
           showConfirmButton: false,
           timer: 1500
         })
@@ -69,7 +77,7 @@ export class ManagerJobComponent implements OnInit {
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
-        this.snack.open("Đăng ký thất bại", "Đóng", {
+        this.snack.open("Thêm thông tin thất bại", "Đóng", {
           duration: 2000,
           verticalPosition: "top",
          });
@@ -93,6 +101,10 @@ export class ManagerJobComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
+        this.snack.open("Cập nhật thất bại", "Đóng", {
+          duration: 2000,
+          verticalPosition: "top",
+         });
       }
     );
   }
@@ -101,10 +113,21 @@ export class ManagerJobComponent implements OnInit {
     this.jobService.deleteJob(id).subscribe(
       (response: void) => {
         console.log(response);
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Xóa thành công',
+          showConfirmButton: false,
+          timer: 1500
+        })
         this.getAllJob();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
+        this.snack.open("Xóa thất bại", "Đóng", {
+          duration: 2000,
+          verticalPosition: "top",
+         });
       }
     );
   }
@@ -118,7 +141,7 @@ export class ManagerJobComponent implements OnInit {
       }
     }
     this.jobs = results;
-    if (results.length === 0 || !key) {
+    if (!key) {
       this.getAllJob();
     }
   }

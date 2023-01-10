@@ -1,0 +1,100 @@
+<div class="container" id="main-container">
+    <div class="row" style="margin-bottom: 15px">
+        <div class="col-sm">  
+         <a matTooltip="Xuất danh sách xác nhận đăng ký thực tập" (click) = "exportIntern();"><img class="img-size" src="https://brocku.ca/information-technology/wp-content/uploads/sites/56/icon-excel-space-1.png?x81973" alt=""></a>       
+        </div>
+        <!-- <form class="form-inline col-sm my-2 my-lg-0" style="max-width: 300px;">
+            <input type="search" (ngModelChange)="searchInterns(key.value)" #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Tìm kiếm thông tin..." required>
+        </form> -->
+    </div>
+    <div class="row">
+      <div *ngFor="let intern of interns" class="col-md-6 col-xl-3">
+         <div  class="card m-b-30">
+            <div >
+               <div *ngFor="let student of students" style="margin: 5%;">               
+                   <a href=""><img *ngIf="student.userCode == intern.userCode" style="min-width:180px"  src="{{student?.profile}}" alt="" class="img-fluid"></a>                        
+               </div>
+               <div *ngFor="let student of students"  style="text-align: center;">               
+                   <h4 *ngIf="student.userCode == intern.userCode">{{student?.fullName}}</h4>
+               </div>
+            </div>
+            <ul class="list-group list-group-flush">               
+                <li class="list-group-item"><mat-icon matTooltip="Lớp" class="icon-position" aria-hidden="false" fontIcon="">warehouse</mat-icon>{{intern.classInfo}}</li>
+                <li class="list-group-item"><mat-icon matTooltip="Điểm trung bình" class="icon-position" aria-hidden="false" fontIcon="">rate_review</mat-icon>{{intern.gpa}}</li>
+               </ul>
+            <div class="card-body">
+               <mat-checkbox style="float:left" [(ngModel)]="intern.accept" disabled="true">
+                  <span *ngIf="intern.accept">Đã xác nhận</span>
+                  <span *ngIf="!intern.accept">Chưa xác nhận</span>
+               </mat-checkbox> 
+               <div class="float-right btn-group btn-group-sm">                                           
+                  <a (click)="onOpenModal(intern, 'detail')" class="btn btn-success tooltips" data-placement="top" data-original-title="Detail">
+                     <mat-icon aria-hidden="false" fontIcon="">edit_note</mat-icon>
+                  </a>      
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal fade" id="detailInternModal" tabindex="-1" role="dialog" aria-labelledby="internModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">          
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body" *ngFor="let student of students">
+                 <mat-card *ngIf="student.userCode == detailIntern?.userCode"  class="example-card">
+                    <mat-card-header>
+                      <img class="example-header-image" mat-card-avatar src="{{student?.profile}}">
+                      <mat-card-title >{{student?.fullName}}</mat-card-title>
+                      <mat-card-subtitle >MSV: {{student?.userCode}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content >
+                       <div>Lớp: {{detailIntern?.classInfo}} </div>
+                       <div>Chuyên ngành: {{detailIntern?.major}} </div>
+                       <div>Điểm trung bình: {{detailIntern?.gpa}} </div>
+                       <div>Lĩnh vực thực tập: {{detailIntern?.fieldOfIntern}}</div>
+                       <div *ngFor="let company of companies">
+                        <div *ngIf="company.cid == detailIntern?.company.cid">Công ty thực tập: {{company?.company_name}} </div>
+                       </div>
+                       <div>Họ và tên của người hướng dẫn: {{detailIntern?.instructorName}} </div>
+                       <div>Vị trí của người hướng dẫn: {{detailIntern?.instructorPosition}} </div>                     
+                       <div>Địa chỉ Email của người hướng dẫn: {{detailIntern?.instructorEmail}} </div>
+                       <div>Số điện thoại của người hướng dẫn: {{detailIntern?.instructorPhone}} </div>
+
+                       <form #editForm="ngForm">
+                        <input type="hidden" name="id" [ngModel]="detailIntern?.id">
+                        <input type="hidden" name="classInfo" [ngModel]="detailIntern?.classInfo"> 
+                        <input type="hidden" name="major" [ngModel]="detailIntern?.major"> 
+                        <input type="hidden" name="gpa" [ngModel]="detailIntern?.gpa"> 
+                        <input type="hidden" name="instructorName" [ngModel]="detailIntern?.instructorName"> 
+                        <input type="hidden" name="instructorPosition" [ngModel]="detailIntern?.instructorPosition"> 
+                        <input type="hidden" name="instructorEmail" [ngModel]="detailIntern?.instructorEmail">
+                        <input type="hidden" name="instructorPhone" [ngModel]="detailIntern?.instructorPhone">
+                        <input type="hidden" name="fieldOfIntern" [ngModel]="detailIntern?.fieldOfIntern">
+                        <input type="hidden" name="userCode" [ngModel]="detailIntern?.userCode">
+                        
+                        <input type="hidden" name="company" [ngModel]="detailIntern?.company"> 
+                        <mat-slide-toggle
+                           name="accept"
+                            class="example-margin"               
+                            [checked]="false"
+                            [ngModel]="detailIntern?.accept">
+                            Xác nhận
+                        </mat-slide-toggle>                             
+                        <div class="modal-footer">                    
+                           <button (click)="onUpdateIntern(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Lưu</button>
+                           <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Đóng</button>
+                        </div>
+                     </form>
+                    </mat-card-content>                
+                  </mat-card>
+              </div>
+           </div>
+        </div>
+      </div>

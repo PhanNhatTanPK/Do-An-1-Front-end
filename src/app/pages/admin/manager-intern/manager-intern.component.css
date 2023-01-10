@@ -1,0 +1,17 @@
+.p0{
+    border: none;
+    padding: 0;
+}
+
+.icon-position{
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.img-size {
+    max-height: 38px;
+}

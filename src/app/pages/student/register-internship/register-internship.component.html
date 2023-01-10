@@ -1,0 +1,247 @@
+<mat-card>
+   <h2>Nhập thông tin đăng ký thực tập</h2>
+    <!-- <form #addForm="ngForm" (ngSubmit)="formSubmit()">
+      <div class="row">
+         <div class="form-group col">
+           
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Mã sinh viên</mat-label>
+             <input matInput type="text"                                
+             name = "user"  
+             id="user" 
+             placeholder="..."            
+             [(ngModel)] = "internData.user" 
+             [value]="loginService.getUser().userCode"
+             required>                                                     
+          </mat-form-field>       
+          <select name = "user" [(ngModel)] = "internData.user" class="form-select form-select-lg mb-3 text-change" aria-label=".form-select-lg example">                    
+            <option class="text-change" *ngFor="let student of userList"
+                     [ngValue]="student" [selected]="student.userCode === loginService.getUser().userCode">
+                  {{student.userCode}}
+            </option>   
+          </select>
+         </div>            
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Lớp</mat-label>
+             <input matInput type="text"                                
+             name = "classInfo" 
+             id= "classInfo"  
+             placeholder="..."
+             [(ngModel)] = "internData.classInfo" required>                                                     
+          </mat-form-field>
+         </div>
+      </div>   
+      <div class="row">
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Chuyên ngành</mat-label>
+             <input matInput type="text"                                
+             name = "major"  
+             id="major" 
+             placeholder="..."
+             [(ngModel)] = "internData.major" required>                                                     
+          </mat-form-field>
+         </div>            
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Điểm trung bình 3 năm</mat-label>
+             <input matInput type="text"                                
+             name = "gpa" 
+             id= "gpa"  
+             placeholder="..."
+             [(ngModel)] = "internData.gpa" required>                                                     
+          </mat-form-field>
+         </div>
+      </div>  
+      <div class="row">
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Họ và tên người hướng dẫn</mat-label>
+             <input matInput type="text"                                
+             name = "instructorName"  
+             id="instructorName" 
+             placeholder="..."
+             [(ngModel)] = "internData.instructorName" required>                                                     
+          </mat-form-field>
+         </div>            
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Chức vụ của người hướng dẫn</mat-label>
+             <input matInput type="text"                                
+             name = "instructorPosition" 
+             id= "instructorPosition"  
+             placeholder="..."
+             [(ngModel)] = "internData.instructorPosition" required>                                                     
+          </mat-form-field>
+         </div>
+      </div>  
+      <div class="row">
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Email người hướng dẫn</mat-label>
+             <input matInput type="email"                                
+             name = "instructorEmail"  
+             id="instructorEmail" 
+             placeholder="..."
+             [(ngModel)] = "internData.instructorEmail" required>                                                     
+          </mat-form-field>
+         </div>            
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Số điện thoại người hướng dẫn</mat-label>
+             <input matInput type="text"                                
+             name = "instructorPhone" 
+             id= "instructorPhone"  
+             placeholder="..."
+             [(ngModel)] = "internData.instructorPhone" required>                                                     
+          </mat-form-field>
+         </div>
+      </div>    
+      <div class="row">
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Lĩnh vực thực tập</mat-label>
+             <input matInput type="email"                                
+             name = "fieldOfIntern"  
+             id="fieldOfIntern" 
+             placeholder="..."
+             [(ngModel)] = "internData.fieldOfIntern" required>                                                     
+          </mat-form-field>
+         </div>            
+         <div class="form-group col">
+            <select name = "company" [(ngModel)] = "internData.company.cid" class="form-select form-select-lg mb-3 text-change" aria-label=".form-select-lg example">                    
+               <option class="text-change" 
+                *ngFor="let c of companyList" [ngValue]="c.cid">
+                     {{c.company_name}}
+               </option>   
+             </select>
+         </div>
+      </div>                   
+     <div class="modal-footer">
+        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Thêm</button>
+     </div>
+     </form> -->
+
+     <form #addForm="ngForm" (ngSubmit)="onAddNew(addForm)">
+      <div class="row">
+         <div class="form-group col">         
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Mã sinh viên</mat-label>
+             <input matInput type="text"                                
+             name = "userCode"  
+             id="userCode" 
+             placeholder="..."            
+             ngModel="{{loginService.getUser().userCode}}"
+             required>                                                     
+          </mat-form-field>        
+          <!-- <select name = "user" ngModel class="form-select form-select-lg mb-3 text-change" aria-label=".form-select-lg example">                    
+            <option class="text-change" *ngFor="let student of students"
+                     [ngValue]="student">
+                  {{student.userCode}}
+            </option>   
+          </select> -->
+         </div>            
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Lớp</mat-label>
+             <input matInput type="text"                                
+             name = "classInfo" 
+             id= "classInfo"  
+             placeholder="..."
+             ngModel required>                                                     
+          </mat-form-field>
+         </div>
+      </div>   
+      <div class="row">
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Chuyên ngành</mat-label>
+             <input matInput type="text"                                
+             name = "major"  
+             id="major" 
+             placeholder="..."
+             ngModel required>                                                     
+          </mat-form-field>
+         </div>            
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Điểm trung bình 3 năm</mat-label>
+             <input matInput type="text"                                
+             name = "gpa" 
+             id= "gpa"  
+             placeholder="..."
+             ngModel required>                                                     
+          </mat-form-field>
+         </div>
+      </div>  
+      <div class="row">
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Họ và tên người hướng dẫn</mat-label>
+             <input matInput type="text"                                
+             name = "instructorName"  
+             id="instructorName" 
+             placeholder="..."
+             ngModel required>                                                     
+          </mat-form-field>
+         </div>            
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Chức vụ của người hướng dẫn</mat-label>
+             <input matInput type="text"                                
+             name = "instructorPosition" 
+             id= "instructorPosition"  
+             placeholder="..."
+            ngModel required>                                                     
+          </mat-form-field>
+         </div>
+      </div>  
+      <div class="row">
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Email người hướng dẫn</mat-label>
+             <input matInput type="email"                                
+             name = "instructorEmail"  
+             id="instructorEmail" 
+             placeholder="..."
+             ngModel required>                                                     
+          </mat-form-field>
+         </div>            
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Số điện thoại người hướng dẫn</mat-label>
+             <input matInput type="text"                                
+             name = "instructorPhone" 
+             id= "instructorPhone"  
+             placeholder="..."
+             ngModel required>                                                     
+          </mat-form-field>
+         </div>
+      </div>    
+      <div class="row">
+         <div class="form-group col">
+          <mat-form-field class="form-control p0"  appearance="outline">
+             <mat-label>Lĩnh vực thực tập</mat-label>
+             <input matInput type="email"                                
+             name = "fieldOfIntern"  
+             id="fieldOfIntern" 
+             placeholder="..."
+            ngModel required>                                                     
+          </mat-form-field>
+         </div>            
+         <div class="form-group col">
+            <select name = "company" ngModel class="form-select form-select-lg mb-3 text-change" aria-label=".form-select-lg example">                    
+               <option [ngValue]="null" selected>Chọn công ty</option>
+               <option class="text-change" 
+                *ngFor="let c of companyList" [ngValue]="c">
+                     {{c.company_name}}
+               </option>   
+             </select>
+         </div>
+      </div>                   
+     <div class="modal-footer">
+        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Thêm</button>
+     </div>
+     </form>
+</mat-card>

@@ -6,4 +6,7 @@
 .icon-position{
     display: inline-flex;
     vertical-align: middle;
-  }
+}
+.img-size {
+    max-height: 38px;
+}

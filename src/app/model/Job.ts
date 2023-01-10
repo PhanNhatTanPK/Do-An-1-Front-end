@@ -1,6 +1,6 @@
 export interface Job {
     jid: number;
-    quantity: number;
+    quantity: string;
 	language: string;
 	time: string;
     request: string;

@@ -6,4 +6,8 @@
 .icon-position{
     display: inline-flex;
     vertical-align: middle;
-  }
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}

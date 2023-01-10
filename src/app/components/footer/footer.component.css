@@ -1,0 +1,15 @@
+h3 {
+    color: hsl(206, 17%, 92%);
+}
+.color {
+    background: #2a579a;
+}
+
+.icon-position{
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.text-color{
+    color: white;
+}

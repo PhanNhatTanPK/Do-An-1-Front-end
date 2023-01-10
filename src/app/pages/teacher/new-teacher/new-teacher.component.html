@@ -1,0 +1,48 @@
+<div class="container" id="main-container">
+    <div class="row" style="margin-bottom: 15px">
+      <div class="col-sm"></div>
+      <form class="form-inline col-sm my-2 my-lg-0" style="max-width: 300px;">
+          <input type="search" (ngModelChange)="searchNews(key.value)" #key="ngModel" ngModel
+           name="key" id="searchName" class="form-control mr-sm-2" placeholder="Tìm kiếm tin tức..." required>
+      </form>
+    </div>
+    <mat-card *ngFor="let newData of news" class="mt-10" style="margin-bottom: 15px">
+        <mat-card-header>
+          <img mat-card-avatar src="{{newData.image}}">
+          <mat-card-title>{{newData.title}}</mat-card-title>
+          <mat-card-subtitle>{{newData.date}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content >
+          <div>Mô tả ngắn: {{newData.short_description}}</div>
+        </mat-card-content>   
+        <mat-card-actions>
+          <button (click)="onOpenModal(newData, 'detail')" mat-raised-button color="primary">Chi tiết</button>
+        </mat-card-actions>             
+    </mat-card>
+
+    <!-- Detail Modal -->
+    <div class="modal fade" id="detailNewModal" tabindex="-1" role="dialog" aria-labelledby="detailModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">          
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body">
+                 <mat-card *ngFor="let admin of adminData" class="example-card">
+                    <mat-card-header>
+                      <img class="example-header-image" mat-card-avatar src="{{admin?.profile}}">
+                      <mat-card-title>{{admin?.fullName}}</mat-card-title>
+                      <mat-card-subtitle>{{detailNew?.date}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content >
+                       {{detailNew?.title}} 
+                       <div [innerHTML]="detailNew?.content"></div>
+                    </mat-card-content>                
+                  </mat-card>
+              </div>
+           </div>
+        </div>
+      </div>
+</div>

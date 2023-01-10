@@ -21,16 +21,16 @@
                 <h4>{{company.company_name}}</h4>
             </div>
             <ul class="list-group list-group-flush">               
-                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">location_on</mat-icon> {{company.company_address}}</li>
-                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">contact_mail</mat-icon> {{company.email}}</li>
-                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">contact_phone</mat-icon> {{company.phone}}</li>
+                <li class="list-group-item"><mat-icon class="icon-position" matTooltip="Địa chỉ" aria-hidden="false" fontIcon="">location_on</mat-icon> {{company.company_address}}</li>
+                <li class="list-group-item"><mat-icon class="icon-position" matTooltip="Email" aria-hidden="false" fontIcon="">contact_mail</mat-icon> {{company.email}}</li>
+                <li class="list-group-item"><mat-icon class="icon-position" matTooltip="Số điện thoại" aria-hidden="false" fontIcon="">contact_phone</mat-icon> {{company.phone}}</li>
             </ul>
             <div class="card-body">
                <div class="float-right btn-group btn-group-sm">
-                    <a (click)="onOpenModal(company, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">
+                    <a (click)="onOpenModal(company, 'edit')" matTooltip="Chỉnh sửa" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit">
                         <mat-icon aria-hidden="false" fontIcon="">edit_square</mat-icon>
                     </a>
-                    <a (click)="onOpenModal(company, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
+                    <a (click)="onOpenModal(company, 'delete')" matTooltip="Xóa" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
                         <mat-icon aria-hidden="false" fontIcon="">delete</mat-icon>
                     </a>
                </div>

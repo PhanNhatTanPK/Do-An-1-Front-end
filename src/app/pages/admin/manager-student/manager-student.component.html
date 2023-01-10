@@ -15,19 +15,19 @@
       <div *ngFor="let student of students" class="col-md-6 col-xl-3">
          <div class="card m-b-30">
             <div class="card-body row">               
-                <a href=""><img src="{{student.profile}}" alt="" class="img-fluid"></a>                        
+                <a href=""><img style="min-width: 180px;" src="{{student.profile}}" alt="" class="img-fluid"></a>                        
             </div>
             <div class="row card-title align-self-center" >               
                 <h4>{{student.fullName}}</h4>
             </div>
             <ul class="list-group list-group-flush">               
-                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">location_on</mat-icon> {{student.address}}</li>
-                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">contact_mail</mat-icon> {{student.email}}</li>
-                <li class="list-group-item"><mat-icon class="icon-position" aria-hidden="false" fontIcon="">contact_phone</mat-icon> {{student.phone}}</li>
+                <li class="list-group-item"><mat-icon matTooltip="Địa chỉ" class="icon-position" aria-hidden="false" fontIcon="">location_on</mat-icon> {{student.address}}</li>
+                <li class="list-group-item"><mat-icon matTooltip="Email" class="icon-position" aria-hidden="false" fontIcon="">contact_mail</mat-icon> {{student.email}}</li>
+                <li class="list-group-item"><mat-icon matTooltip="Số điện thoại" class="icon-position" aria-hidden="false" fontIcon="">contact_phone</mat-icon> {{student.phone}}</li>
             </ul>
             <div class="card-body">
                <div class="float-right btn-group btn-group-sm">                  
-                    <a (click)="onOpenModal(student, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
+                    <a (click)="onOpenModal(student, 'delete')" matTooltip="Xóa" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">
                         <mat-icon aria-hidden="false" fontIcon="">delete</mat-icon>
                     </a>
                </div>

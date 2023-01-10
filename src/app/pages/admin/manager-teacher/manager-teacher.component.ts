@@ -5,6 +5,7 @@ import { User } from 'src/app/model/User';
 import { UserService } from 'src/app/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2'
+import { ExportService } from 'src/app/services/export.service';
 
 @Component({
   selector: 'app-manager-teacher',
@@ -74,14 +75,13 @@ export class ManagerTeacherComponent implements OnInit {
   public searchTeachers(key: string): void {
     console.log(key);
     const results: User[] = [];
-    for (const student of this.teachers) {
-      if (student.fullName.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-          student.userCode.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
-        results.push(student);
+    for (const teacher of this.teachers) {
+      if (teacher.fullName.toLowerCase().indexOf(key.toLowerCase()) !== -1 ) {
+        results.push(teacher);
       }
     }
     this.teachers = results;
-    if (results.length === 0 || !key) {
+    if (!key) {
       this.getAllTeacher();
     }
   }
@@ -103,4 +103,5 @@ export class ManagerTeacherComponent implements OnInit {
     button.click();
   }
 
+  
 }

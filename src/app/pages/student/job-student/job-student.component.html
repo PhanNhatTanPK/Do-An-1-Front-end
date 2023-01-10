@@ -1,0 +1,51 @@
+<div class="container" id="main-container">
+<div class="row" style="margin-bottom: 15px">
+  <div class="col-sm"></div>
+  <form class="form-inline col-sm my-2 my-lg-0" style="max-width: 300px;">
+      <input type="search" (ngModelChange)="searchJobs(key.value)" #key="ngModel" ngModel
+       name="key" id="searchName" class="form-control mr-sm-2" placeholder="Tìm kiếm thông tin tuyển dụng..." required>
+  </form>
+</div>
+<mat-card *ngFor="let jobData of jobs" class="mt-10" style="margin-bottom: 15px">
+    <mat-card-header>
+      <img mat-card-avatar src="{{jobData.company.img}}">
+      <mat-card-title>{{jobData.company.company_name}}</mat-card-title>
+      <mat-card-subtitle>Ngôn ngữ lập trình: {{jobData.language}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content >
+      <div>Yêu cầu: {{jobData.request}}</div>
+      <div>Thời gian thực tập: {{jobData.time}}</div>
+    </mat-card-content>   
+    <mat-card-actions>
+      <button (click)="onOpenModal(jobData, 'detail')" mat-raised-button color="primary">Chi tiết</button>
+    </mat-card-actions>             
+</mat-card>
+
+<!-- Detail Modal -->
+<div class="modal fade" id="detailJobModal" tabindex="-1" role="dialog" aria-labelledby="detailModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">          
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <mat-card class="">
+              <mat-card-header>
+                <img class="" mat-card-avatar src="{{detailJob?.company.img}}">
+                <mat-card-title>{{detailJob?.company.company_name}}</mat-card-title>               
+              </mat-card-header>
+              <mat-card-content >
+                <h3 style="text-align: center;">THÔNG TIN CHI TIẾT</h3>
+                <div>Số lượng thực tập sinh: {{detailJob?.quantity}}</div>
+                <div>Ngôn ngữ thực tập: {{detailJob?.language}}</div>
+                <div>Thời gian thực tập: {{detailJob?.time}}</div>
+                <div [innerHTML]="detailJob?.description"></div>
+              </mat-card-content>                
+            </mat-card>
+        </div>
+     </div>
+  </div>
+</div>
+</div>

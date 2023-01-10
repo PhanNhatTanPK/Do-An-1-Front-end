@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
              this.loginService.loginStatus.next(true);
             }
             // Điều hướng UI USER
-            else if(this.loginService.getUserRole() == 'USER') {
+            else if(this.loginService.getUserRole() == 'STUDENT') {
               this.router.navigate(['student']);
               this.loginService.loginStatus.next(true);
             }
@@ -65,8 +65,10 @@ export class LoginComponent implements OnInit {
         );
       },
       (error:any) => {
-        console.log("error");
-        console.log(error);
+        this.snack.open("Tài khoản hoặc mật khẩu không đúng", "Đóng", {
+          duration: 2000,
+          verticalPosition:"top",
+        });
       }
     );
   }

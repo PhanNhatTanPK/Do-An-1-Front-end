@@ -19,6 +19,7 @@
     right: 0;;
     z-index: 2;
     line-height: 46px;
+    background-color: #2a579a;
 }
 
 #nav > li > a{
@@ -59,4 +60,10 @@
 
 .mg-icon{
   margin-left: 23px;
+}
+
+.text-font {
+  font-family: Garamond;
+  color: aliceblue;
+  margin-left: 20px;
 }

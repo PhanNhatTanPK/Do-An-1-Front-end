@@ -15,14 +15,14 @@ export class JobService {
   }
 
   public addJob(job:any) {
-    return this.http.post<any>(`${baseUrl}/job/create`, job);
+    return this.http.post<any>(`${baseUrl}/job/`, job);
   }
 
   public updateJob(job: Job): Observable<Job> {
-    return this.http.put<Job>(`${baseUrl}/job/update`, job);
+    return this.http.put<Job>(`${baseUrl}/job/`, job);
   }
 
   public deleteJob(id: number): Observable<void> {
-    return this.http.delete<void>(`${baseUrl}/job/delete/${id}`);
+    return this.http.delete<void>(`${baseUrl}/job/${id}`);
   }
 }

@@ -26,10 +26,25 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { authInterceptorProviders } from './services/auth.interceptor';
 import { StudentComponent } from './pages/student/student/student.component';
 import { TeacherComponent } from './pages/teacher/teacher/teacher.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { SidebarStudentComponent } from './pages/student/sidebar-student/sidebar-student.component';
+import { JobStudentComponent } from './pages/student/job-student/job-student.component';
+import { NewStudentComponent } from './pages/student/new-student/new-student.component';
+import { RegisterInternshipComponent } from './pages/student/register-internship/register-internship.component';
+import { ReportComponent } from './pages/student/report/report.component';
+import { SidebarTeacherComponent } from './pages/teacher/sidebar-teacher/sidebar-teacher.component';
+import { ViewReportComponent } from './pages/teacher/view-report/view-report.component';
+import { NewTeacherComponent } from './pages/teacher/new-teacher/new-teacher.component';
+import { AssessComponent } from './pages/teacher/assess/assess.component';
+import { StatisticComponent } from './pages/admin/statistic/statistic.component';
+import { ManagerInternComponent } from './pages/admin/manager-intern/manager-intern.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +62,18 @@ import { ProfileComponent } from './pages/profile/profile.component';
     SidebarComponent,
     StudentComponent,
     TeacherComponent,
-    ProfileComponent
+    ProfileComponent,
+    SidebarStudentComponent,
+    JobStudentComponent,
+    NewStudentComponent,
+    RegisterInternshipComponent,
+    ReportComponent,
+    SidebarTeacherComponent,
+    ViewReportComponent,
+    NewTeacherComponent,
+    AssessComponent,
+    StatisticComponent,
+    ManagerInternComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +90,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
     MatIconModule,
     MatSelectModule,
     MatTooltipModule,
+    CKEditorModule,
+    MatSlideToggleModule,
+    MatCheckboxModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

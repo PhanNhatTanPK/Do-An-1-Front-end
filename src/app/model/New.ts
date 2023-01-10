@@ -1,7 +1,8 @@
 export interface New {
-    id: number
+    id: number,
     title: string,
     short_description: string,
     content: string,
     image: string,
+    date: string,
 }

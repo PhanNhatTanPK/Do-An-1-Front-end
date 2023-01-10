@@ -35,8 +35,12 @@ export class ProfileComponent implements OnInit {
   public onUpdateUser(userData: User): void {
     this.userService.updateUser(userData).subscribe(
       (response: User) => {
-        console.log(response);    
-        window.location.reload();      
+        console.log(response);
+        this.login.getCurrentUser().subscribe(
+          (user:any) => {
+            this.login.setUser(user);
+          });        
+        window.location.reload();          
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
