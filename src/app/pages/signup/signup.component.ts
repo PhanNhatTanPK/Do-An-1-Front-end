@@ -48,6 +48,7 @@ export class SignupComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
+        
       },
       // Thất bại
       (error) =>{
