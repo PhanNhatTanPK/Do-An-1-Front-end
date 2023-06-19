@@ -26,8 +26,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { authInterceptorProviders } from './services/auth.interceptor';
 import { StudentComponent } from './pages/student/student/student.component';
 import { TeacherComponent } from './pages/teacher/teacher/teacher.component';
@@ -44,6 +44,8 @@ import { NewTeacherComponent } from './pages/teacher/new-teacher/new-teacher.com
 import { AssessComponent } from './pages/teacher/assess/assess.component';
 import { StatisticComponent } from './pages/admin/statistic/statistic.component';
 import { ManagerInternComponent } from './pages/admin/manager-intern/manager-intern.component';
+import { FileComponent } from './pages/student/file/file.component';
+import { FinalReportComponent } from './pages/teacher/final-report/final-report.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { ManagerInternComponent } from './pages/admin/manager-intern/manager-int
     NewTeacherComponent,
     AssessComponent,
     StatisticComponent,
-    ManagerInternComponent
+    ManagerInternComponent,
+    FileComponent,
+    FinalReportComponent
   ],
   imports: [
     BrowserModule,

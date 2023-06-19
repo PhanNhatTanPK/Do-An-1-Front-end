@@ -13,3 +13,8 @@ h3 {
 .text-color{
     color: white;
 }
+
+
+@media (max-width: 412px) {
+    
+  }

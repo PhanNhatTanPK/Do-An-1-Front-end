@@ -23,7 +23,7 @@
                     <form (ngSubmit)="formSubmit()" class="login-form" novalidate> 
                         <div class="form-group">
                            
-                                <mat-form-field class="form-control " style="border:none;" appearance="outline">
+                                <mat-form-field class="form-control"  appearance="outline">
                                     <mat-label>Tài khoản</mat-label>
                                     <input matInput 
                                     [(ngModel)] = "loginData.userCode" 
@@ -31,9 +31,9 @@
                                     placeholder="Ví dụ: 425119xxxx" required>                                                     
                                 </mat-form-field>                           
                         
-                                <mat-form-field class="col form-control " style="border:none; " appearance="outline">
+                                <mat-form-field class="col form-control " appearance="outline">
                                     <mat-label>Mật khẩu</mat-label>
-                                    <input matInput type="password"
+                                    <input matInput type="password" 
                                     [(ngModel)] = "loginData.password"
                                     name="password" 
                                     placeholder="Mật khẩu" required>                    

@@ -67,3 +67,7 @@
   color: aliceblue;
   margin-left: 20px;
 }
+
+@media (max-width: 740px) {
+  .aaa {max-width: 424px;}
+}

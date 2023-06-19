@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="panel panel-default">      
+        <mat-card *ngIf="arr?.length > 0" >
+            <div  class="js-upload-finished">
+                <h2>File báo cáo thực tập</h2>
+                <div *ngFor="let filename of arr" class="list-group">
+                    <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success" style="cursor: pointer;">
+                    {{ filename }}            
+                    <a class="alert-success float-right">Download</a>
+                    </a><br>
+                </div>
+            </div>
+        </mat-card>    
+    </div>
+</div>

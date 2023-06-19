@@ -1,0 +1,53 @@
+<div class="container" style="margin-top: 20px;">
+    <div class="panel panel-default">
+        <mat-card>
+            <div class="panel-heading">
+                <h2>Báo cáo thực tập</h2>
+            </div><br>
+            <div class="panel-body">        
+                <strong>Nhập file báo cáo</strong>
+                <div *ngIf="fileStatus.status==='progress'">
+                    <div class="progress">
+                        <div [style.width.%]="fileStatus.percent" class="progress-bar progress-bar-animated bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                            {{ fileStatus.requestType }} {{ fileStatus.percent }} 
+                        </div>
+                    </div>
+                </div> <hr>
+        
+                <form enctype="multipart/form-data">
+                    <fieldset>
+                        <div class="form-group">
+                        <div>
+                            <input type="file" (change)="onUploadFiles($any($event.target).files)" name="files" multiple class="form-control" />
+                        </div>
+                        </div>
+                    </fieldset>
+                </form>
+        
+                <br>            
+            </div>
+        </mat-card>  
+        <mat-card *ngIf="filenames?.length > 0" style="margin-top: 20px;">
+            <div  class="js-upload-finished">
+                <h2>File báo cáo thực tập</h2>
+                <div *ngFor="let filename of filenames" class="list-group">
+                    <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success" style="cursor: pointer;">
+                    {{ filename }}            
+                    <a class="alert-success float-right">Download</a>
+                    </a><br>
+                </div>
+            </div>
+        </mat-card>  
+        <mat-card *ngIf="arr?.length > 0" style="margin-top: 20px;">
+            <div  class="js-upload-finished">
+                <h2>File báo cáo thực tập</h2>
+                <div *ngFor="let filename of arr" class="list-group">
+                    <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success" style="cursor: pointer;">
+                    {{ filename }}            
+                    <a class="alert-success float-right">Download</a>
+                    </a><br>
+                </div>
+            </div>
+        </mat-card>    
+    </div>
+</div>

@@ -736,7 +736,9 @@
       padding-left: 6px;
       padding-right: 6px;
     }
-  }.u-section-6 .u-sheet-1 {
+  }
+
+  .u-section-6 .u-sheet-1 {
     min-height: 756px;
   }
   
@@ -793,6 +795,10 @@
     .u-section-6 .u-image-1 {
       height: 245px;
       margin-top: 46px;
+    }
+
+    .hide {
+      display: none;
     }
   }
   /*begin-commonstyles library*//*!

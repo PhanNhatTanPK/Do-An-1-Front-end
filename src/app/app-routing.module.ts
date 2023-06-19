@@ -24,6 +24,8 @@ import { ViewReportComponent } from './pages/teacher/view-report/view-report.com
 import { AdminGuard } from './services/admin.guard';
 import { StudentGuard } from './services/student.guard';
 import { TeacherGuard } from './services/teacher.guard';
+import { FileComponent } from './pages/student/file/file.component';
+import { FinalReportComponent } from './pages/teacher/final-report/final-report.component';
 
 const routes: Routes = [
   {
@@ -97,6 +99,10 @@ const routes: Routes = [
         path: 'report',
         component: ReportComponent,
       },
+      {
+        path: 'finalReport',
+        component: FileComponent,
+      },
     ]
   },
   {
@@ -115,6 +121,10 @@ const routes: Routes = [
       {
         path: 'assess',
         component: AssessComponent,
+      },
+      {
+        path: 'finalReport',
+        component: FinalReportComponent,
       },
     ]
   },

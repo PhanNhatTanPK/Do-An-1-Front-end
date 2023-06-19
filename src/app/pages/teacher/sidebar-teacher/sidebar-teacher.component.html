@@ -1,21 +1,26 @@
 <mat-card>
     <mat-card-actions>        
         <mat-card-header>Menu</mat-card-header>
-        <button mat-button routerLink="/">         
+        <button mat-button routerLink="/" style="display:block">         
             <mat-icon aria-hidden="false" fontIcon="">home</mat-icon>   
             Trang chủ                      
-        </button>
-        <button mat-button routerLink="/teacher/viewReport">         
-            <mat-icon aria-hidden="false" fontIcon="">plagiarism</mat-icon>   
-            Xem báo cáo                     
-        </button>
-        <button mat-button routerLink="/teacher/assess">         
-            <mat-icon aria-hidden="false" fontIcon="">assignment</mat-icon>   
-            Đánh giá kết quả thực tập                     
         </button>
         <button mat-button routerLink="/teacher/newInfo">         
             <mat-icon aria-hidden="false" fontIcon="">newspaper</mat-icon>   
             Tin tức                      
         </button>
+        <button mat-button routerLink="/teacher/viewReport">         
+            <mat-icon aria-hidden="false" fontIcon="">plagiarism</mat-icon>   
+            Nhật ký thực tập                    
+        </button>     
+        <button mat-button routerLink="/teacher/finalReport">         
+            <mat-icon aria-hidden="false" fontIcon="">edit_calendar</mat-icon>   
+            Báo cáo thực tập                     
+        </button>
+        <button mat-button routerLink="/teacher/assess">         
+            <mat-icon aria-hidden="false" fontIcon="">assignment</mat-icon>   
+            Đánh giá kết quả thực tập                     
+        </button>
+       
     </mat-card-actions>
 </mat-card>
